@@ -71,10 +71,10 @@ newFiles.component = replaceVars(
 );
 
 const paths = {
-    package: path.join(__dirname, 'package.json'),
-    rollupConfig: path.join(__dirname, 'build', 'rollup.config.js'),
-    indexjs: path.join(__dirname, 'src', 'index.js'),
-    component: path.join(__dirname, 'src', 'component.vue'),
+    package: path.join(__dirname, 'components', componentName, 'package.json'),
+    rollupConfig: path.join(__dirname, 'components', componentName, 'build', 'rollup.config.js'),
+    indexjs: path.join(__dirname, 'components', componentName, 'src', 'index.js'),
+    component: path.join(__dirname, 'components', componentName, 'src', 'component.vue'),
 };
 
 Object.keys(paths).forEach((key) => {
@@ -82,4 +82,14 @@ Object.keys(paths).forEach((key) => {
     fs.writeFileSync(paths[key], newFiles[key]);
 });
 
-console.log('Init is complete, files are ready! Save your SFC as src/component.vue, then run \'npm run build\' to generate the redistributable versions.');
+// Display completion messages
+console.log(
+    '\n' +
+    'Init is complete, files are ready! You\'ll find them in the ' +
+    '`components/' + componentName + '` directory.' +
+    '\n' +
+    'Within that directory, use src/component.vue as a ' +
+    'starting point for your SFC. When you\'re ready, run ' +
+    '`npm run build` to generate the redistributable versions.' +
+    '\n\n'
+);
