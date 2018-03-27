@@ -1,0 +1,10 @@
+{
+  "name": "vue-sfc-rollup",
+  "version": "1.0.0",
+  "description": "Quickly generate redistributable components with Rollup",
+  "author": "Michael Dodge",
+  "license": "ISC",
+  "dependencies": {
+    "readline-sync": "^1.4.9"
+  }
+}
