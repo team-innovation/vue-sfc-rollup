@@ -7,5 +7,12 @@
   "bin": { "sfc-rollup-init": "./sfc-init.js" },
   "dependencies": {
     "readline-sync": "^1.4.9"
-  }
+  },
+  "keywords": [
+    "vue",
+    "template",
+    "compiler",
+    "rollup"
+  ],
+  "homepage": "https://github.com/mgdodge/vue-sfc-rollup"
 }
