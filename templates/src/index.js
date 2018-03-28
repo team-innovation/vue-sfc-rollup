@@ -1,5 +1,5 @@
 // Import vue component
-import component from './component.vue';
+import component from './{{componentName}}.vue';
 
 // install function executed by Vue.use()
 export function install(Vue) {

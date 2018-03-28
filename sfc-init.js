@@ -1,3 +1,5 @@
+#! /usr/bin/env node
+
 const path = require('path');
 const fs = require('fs');
 const readlineSync = require('readline-sync');
@@ -31,17 +33,18 @@ const ensureDirectoryExists = (filePath) => {
 
 // Prompt user for input to populate template files
 const npmName = readlineSync.question('What is the npm name of your component? ');
-const componentName = readlineSync.question('What is the kebab-case tag name for your component? ('+kebabcase(npmName)+')', {
+const componentName = readlineSync.question('What is the kebab-case tag name for your component? ('+kebabcase(npmName)+') ', {
     defaultInput: kebabcase(npmName),
 });
-const componentNamePascal = pascalify(componentName);
-replaceVars('afd',{
-    npmName,
-    componentName,
-    componentNamePascal,
+const savePath = readlineSync.questionPath('Enter a location to save the component files: (./'+componentName+') ', {
+    defaultInput: path.join(process.cwd(), componentName),
+    exists: false,
+    isDirectory: true,
+    create: true,
 });
 
-// Stop prompting, start processing
+// Stop prompting for input, start processing
+const componentNamePascal = pascalify(componentName);
 const vars = {
     npmName,
     componentName,
@@ -71,10 +74,10 @@ newFiles.component = replaceVars(
 );
 
 const paths = {
-    package: path.join(__dirname, 'components', componentName, 'package.json'),
-    rollupConfig: path.join(__dirname, 'components', componentName, 'build', 'rollup.config.js'),
-    indexjs: path.join(__dirname, 'components', componentName, 'src', 'index.js'),
-    component: path.join(__dirname, 'components', componentName, 'src', 'component.vue'),
+    package: path.join(savePath, 'package.json'),
+    rollupConfig: path.join(savePath, 'build', 'rollup.config.js'),
+    indexjs: path.join(savePath, 'src', 'index.js'),
+    component: path.join(savePath, 'src', componentName + '.vue'),
 };
 
 Object.keys(paths).forEach((key) => {
@@ -85,11 +88,12 @@ Object.keys(paths).forEach((key) => {
 // Display completion messages
 console.log(
     '\n' +
-    'Init is complete, files are ready! You\'ll find them in the ' +
-    '`components/' + componentName + '` directory.' +
+    'Init is complete, your files have been generated and saved into ' +
+    'the directory you specified above.' +
     '\n' +
-    'Within that directory, use src/component.vue as a ' +
-    'starting point for your SFC. When you\'re ready, run ' +
-    '`npm run build` to generate the redistributable versions.' +
+    'Within that directory, use src/' + componentName + '.vue as a ' +
+    'starting point for your SFC.' +
+    '\n' +
+    'When you\'re ready, run `npm run build` to generate the redistributable versions.' +
     '\n\n'
 );
