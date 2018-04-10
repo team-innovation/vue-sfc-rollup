@@ -5,7 +5,7 @@ import component from './{{componentName}}.vue';
 export function install(Vue) {
 	if (install.installed) return;
 	install.installed = true;
-	Vue.component('{{componentName}}', component);
+	Vue.component('{{componentNamePascal}}', component);
 }
 
 // Create module definition for Vue.use()

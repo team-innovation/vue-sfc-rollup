@@ -1,6 +1,6 @@
 <script>
 export default {
-    name: '{{componentName}}', // vue component name
+    name: '{{componentNamePascal}}', // vue component name
     data() {
         return {
             counter: 5,
