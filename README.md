@@ -23,7 +23,7 @@ If you wish to integrate this into an existing SFC, please check out [the vue-sf
 
 ### Install
 
-To install vue-sfc-rollup, simply open a terminal and execute the following:
+To install [vue-sfc-rollup](https://www.npmjs.com/package/vue-sfc-rollup), simply open a terminal and execute the following:
 
 ```bash
 npm install -g vue-sfc-rollup
