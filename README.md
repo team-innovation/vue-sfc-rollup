@@ -1,6 +1,6 @@
 # vue-sfc-rollup
 
-vue-sfc-rollup exists to provide the minimal setup necessary to compile a Vue Single File Component (SFC) into a form ready to share via npm. At present, this should be considered *beta* software.
+vue-sfc-rollup exists to provide the minimal setup necessary to compile a Vue Single File Component (SFC) into a form ready to share via npm.
 
 ## TL;DR
 ```bash
