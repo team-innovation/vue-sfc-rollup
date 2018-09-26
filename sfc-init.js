@@ -116,7 +116,7 @@ if (mode === 'library') {
     fs.readFileSync(path.join(__dirname, 'templates', 'library', 'src', 'component.vue')).toString(),
     vars,
   );
-  paths.component = path.join(savePath, 'src', `${kebabName}-sample.vue`);
+  paths.component = path.join(savePath, 'src', 'components', `${kebabName}-sample.vue`);
 }
 
 Object.keys(paths).forEach((key) => {
@@ -137,9 +137,9 @@ When you're ready, run \`npm run build\` to generate the redistributable version
 if (mode === 'library') {
   completeMessage = `
 Init is complete, your files have been generated and saved into the directory you specified above.
-Within that directory, you will find a sample SFC at src/${kebabName}-sample.vue. All vue files in
-that directory prefixed with \`${kebabName}-\` will be automatically added to your library.
-When you're ready, run \`npm run build\` to generate the redistributable versions.
+Within that directory, you will find a sample SFC at src/components/${kebabName}-sample.vue. All
+vue files in that directory prefixed with \`${kebabName}-\` will be automatically added to your
+library. When you're ready, run \`npm run build\` to generate the redistributable versions.
 
 `;
 }
