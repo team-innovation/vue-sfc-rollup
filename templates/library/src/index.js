@@ -1,4 +1,10 @@
-// Import vue component
+// NOTE: This setup uses 'babel-plugin-wildcard' to gather all .vue files
+// from the components directory into one object, keyed by PascalCased versions
+// of their filenames. The same could be accomplished manually by importing
+// individual components and constructing an object from those imports. The resulting
+// object should have PascalCased keys that match the actual component 'name' attribute.
+
+// Import vue components
 import * as components from './components';
 
 // install function executed by Vue.use()
