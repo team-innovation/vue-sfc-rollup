@@ -7,14 +7,26 @@
   "bin": {
     "sfc-rollup-init": "./sfc-init.js"
   },
-  "dependencies": {
-    "readline-sync": "^1.4.9"
-  },
   "keywords": [
     "vue",
     "template",
     "compiler",
     "rollup"
   ],
-  "homepage": "https://github.com/team-innovation/vue-sfc-rollup"
+  "homepage": "https://github.com/team-innovation/vue-sfc-rollup",
+  "scripts": {
+    "lint": "eslint ./**/*.js"
+  },
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "readline-sync": "^1.4.9"
+  },
+  "devDependencies": {
+    "eslint": "^5.6.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0"
+  },
+  "engines": {
+    "node": ">=6"
+  }
 }
