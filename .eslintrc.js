@@ -10,7 +10,7 @@ module.exports = {
       {
         ignore: [
           '^rollup-plugin*',
-          '^./{{componentName}}.vue'
+          '^./<%-componentName%>.vue'
         ],
       },
     ]

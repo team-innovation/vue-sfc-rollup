@@ -1,6 +1,6 @@
 <script>
 export default {
-    name: '{{componentNamePascal}}', // vue component name
+    name: '<%-componentNamePascal%>', // vue component name
     data() {
         return {
             counter: 5,
@@ -11,7 +11,7 @@ export default {
 </script>
 
 <template>
-    <div class="{{componentName}}">
+    <div class="<%-componentName%>">
         <p>The counter is set to <b>{{counter}}</b>.</p>
         <button @click="counter += 1">Click +1</button>
         <button @click="counter -= 1">Click -1</button>
@@ -20,7 +20,7 @@ export default {
 </template>
 
 <style scoped>
-    .{{componentName}} {
+    .<%-componentName%> {
         display: block;
         width: 400px;
         margin: 25px auto;
@@ -29,7 +29,7 @@ export default {
         text-align: center;
         padding: 25px;
     }
-    .{{componentName}} p {
+    .<%-componentName%> p {
         margin: 0 0 1em;
     }
 </style>

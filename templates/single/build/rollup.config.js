@@ -1,6 +1,6 @@
 // rollup.config.js
 import vue from 'rollup-plugin-vue';
-import buble from 'rollup-plugin-buble';
+import babel from 'rollup-plugin-babel';
 import uglify from 'rollup-plugin-uglify-es';
 import minimist from 'minimist';
 
@@ -9,7 +9,7 @@ const argv = minimist(process.argv.slice(2));
 const config = {
   input: 'src/index.js',
   output: {
-    name: '{{componentNamePascal}}',
+    name: '<%-componentNamePascal%>',
     exports: 'named',
   },
   plugins: [
@@ -17,7 +17,21 @@ const config = {
       css: true,
       compileTemplate: true,
     }),
-    buble(),
+    babel({
+      exclude: 'node_modules/**',
+      externalHelpers: true,
+      plugins: [
+        '@babel/plugin-external-helpers',
+      ],
+      presets: [
+        [
+          '@babel/preset-env',
+          {
+            modules: false,
+          },
+        ],
+      ],
+    }),
   ],
 };
 

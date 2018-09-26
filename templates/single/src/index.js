@@ -1,11 +1,11 @@
 // Import vue component
-import component from './{{componentName}}.vue';
+import component from './<%-componentName%>.vue';
 
 // install function executed by Vue.use()
 export function install(Vue) {
   if (install.installed) return;
   install.installed = true;
-  Vue.component('{{componentNamePascal}}', component);
+  Vue.component('<%-componentNamePascal%>', component);
 }
 
 // Create module definition for Vue.use()
