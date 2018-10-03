@@ -67,13 +67,15 @@ const vars = {
 const newFiles = {
   package: '',
   rollupConfig: '',
-  indexjs: '',
+  entryjs: '',
+  libExports: '',
   component: '',
 };
 const paths = {
   package: path.join(savePath, 'package.json'),
   rollupConfig: path.join(savePath, 'build', 'rollup.config.js'),
-  indexjs: path.join(savePath, 'src', 'index.js'),
+  entryjs: path.join(savePath, 'src', 'entry.js'),
+  libExports: null,
   component: null,
 };
 
@@ -87,14 +89,16 @@ if (mode === 'component') {
     fs.readFileSync(path.join(__dirname, 'templates', 'single', 'build', 'rollup.config.js')).toString(),
     vars,
   );
-  newFiles.indexjs = replaceVars(
-    fs.readFileSync(path.join(__dirname, 'templates', 'single', 'src', 'index.js')).toString(),
+  newFiles.entryjs = replaceVars(
+    fs.readFileSync(path.join(__dirname, 'templates', 'single', 'src', 'entry.js')).toString(),
     vars,
   );
+  delete newFiles.libExports;
   newFiles.component = replaceVars(
     fs.readFileSync(path.join(__dirname, 'templates', 'single', 'src', 'component.vue')).toString(),
     vars,
   );
+  delete paths.libExports;
   paths.component = path.join(savePath, 'src', `${kebabName}.vue`);
 }
 
@@ -108,15 +112,20 @@ if (mode === 'library') {
     fs.readFileSync(path.join(__dirname, 'templates', 'library', 'build', 'rollup.config.js')).toString(),
     vars,
   );
-  newFiles.indexjs = replaceVars(
-    fs.readFileSync(path.join(__dirname, 'templates', 'library', 'src', 'index.js')).toString(),
+  newFiles.entryjs = replaceVars(
+    fs.readFileSync(path.join(__dirname, 'templates', 'library', 'src', 'entry.js')).toString(),
+    vars,
+  );
+  newFiles.libExports = replaceVars(
+    fs.readFileSync(path.join(__dirname, 'templates', 'library', 'src', 'lib-components', 'index.js')).toString(),
     vars,
   );
   newFiles.component = replaceVars(
-    fs.readFileSync(path.join(__dirname, 'templates', 'library', 'src', 'component.vue')).toString(),
+    fs.readFileSync(path.join(__dirname, 'templates', 'library', 'src', 'lib-components', 'component.vue')).toString(),
     vars,
   );
-  paths.component = path.join(savePath, 'src', 'components', `${kebabName}-sample.vue`);
+  paths.libExports = path.join(savePath, 'src', 'lib-components', 'index.js');
+  paths.component = path.join(savePath, 'src', 'lib-components', `${kebabName}-sample.vue`);
 }
 
 Object.keys(paths).forEach((key) => {
@@ -137,9 +146,10 @@ When you're ready, run \`npm run build\` to generate the redistributable version
 if (mode === 'library') {
   completeMessage = `
 Init is complete, your files have been generated and saved into the directory you specified above.
-Within that directory, you will find a sample SFC at src/components/${kebabName}-sample.vue. All
-vue files in that directory prefixed with \`${kebabName}-\` will be automatically added to your
-library. When you're ready, run \`npm run build\` to generate the redistributable versions.
+Within that directory, you will find a sample SFC at src/lib-components/${kebabName}-sample.vue.
+Any components you wish to expose as part of your library should be saved in that directory, and
+an entry must be added to src/lib-components/index.js so that rollup is aware of it. When you're
+ready, run \`npm run build\` to generate the redistributable versions.
 
 `;
 }

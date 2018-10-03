@@ -2,7 +2,7 @@
 import component from './<%-componentName%>.vue';
 
 // install function executed by Vue.use()
-export function install(Vue) {
+function install(Vue) {
   if (install.installed) return;
   install.installed = true;
   Vue.component('<%-componentNamePascal%>', component);
