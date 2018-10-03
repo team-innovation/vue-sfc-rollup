@@ -1,6 +1,6 @@
 // rollup.config.js
 import vue from 'rollup-plugin-vue';
-import babel from 'rollup-plugin-babel';
+import buble from 'rollup-plugin-buble';
 import uglify from 'rollup-plugin-uglify-es';
 import minimist from 'minimist';
 
@@ -17,21 +17,7 @@ const config = {
       css: true,
       compileTemplate: true,
     }),
-    babel({
-      exclude: 'node_modules/**',
-      externalHelpers: true,
-      plugins: [
-        '@babel/plugin-external-helpers',
-      ],
-      presets: [
-        [
-          '@babel/preset-env',
-          {
-            modules: false,
-          },
-        ],
-      ],
-    }),
+    buble(),
   ],
 };
 

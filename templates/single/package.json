@@ -26,12 +26,9 @@
   },
 
   "devDependencies": {
-    "@babel/core": "^7.1.0",
-    "@babel/plugin-external-helpers": "^7.0.0",
-    "@babel/preset-env": "^7.1.0",
     "minimist": "^1.2.0",
     "rollup": "^0.66.2",
-    "rollup-plugin-babel": "^4.0.3",
+    "rollup-plugin-buble": "^0.19.2",
     "rollup-plugin-uglify-es": "0.0.1",
     "rollup-plugin-vue": "^4.3.0",
     "vue": "^2.5.16",
