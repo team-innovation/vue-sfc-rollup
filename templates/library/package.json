@@ -6,13 +6,11 @@
   "main": "dist/<%-componentName%>.umd.js",
   "module": "dist/<%-componentName%>.esm.js",
   "unpkg": "dist/<%-componentName%>.min.js",
-  "browser": {
-    "./sfc": "src/<%-componentName%>.vue"
-  },
 
   "files": [
     "dist/*",
-    "src/*"
+    "src/*",
+    "!src/lib-dev.vue"
   ],
 
   "scripts": {

@@ -11,9 +11,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 ### Removed
 -->
-### Changed
-- Updated README.md with library mode usage
+### TODO
 - Refactor rollup configs - allow per-compile options
+- Add *browser* property to library-mode package.json for SSR usage
+
+## [1.0.0] - 2018-10-09
+### Changed
+- Updated README<!---->.md with library mode usage
 
 ### Removed
 - Removed unused .gitignore rules
@@ -25,13 +29,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Named exports of individual components in library mode
 
 ### Changed
-- **BREAKING CHANGE**: Don't export sfc 'install' function, only ever used in autoinstall
+- **BREAKING CHANGE**: Don't export sfc *install* function, only ever used in autoinstall
 - Rename some files to better indicate their purpose
 - Switch to ejs for templating
 - Implement eslint, consistent airbnb formatting
-
-### Removed
-- Section about "changelog" vs "CHANGELOG".
 
 ## [0.3.1] - 2018-05-18
 ### Added

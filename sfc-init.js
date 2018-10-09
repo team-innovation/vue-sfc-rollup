@@ -68,6 +68,7 @@ const newFiles = {
   package: '',
   rollupConfig: '',
   entryjs: '',
+  libDev: '',
   libExports: '',
   component: '',
 };
@@ -75,6 +76,7 @@ const paths = {
   package: path.join(savePath, 'package.json'),
   rollupConfig: path.join(savePath, 'build', 'rollup.config.js'),
   entryjs: path.join(savePath, 'src', 'entry.js'),
+  libDev: null,
   libExports: null,
   component: null,
 };
@@ -93,11 +95,13 @@ if (mode === 'component') {
     fs.readFileSync(path.join(__dirname, 'templates', 'single', 'src', 'entry.js')).toString(),
     vars,
   );
+  delete newFiles.libDev;
   delete newFiles.libExports;
   newFiles.component = replaceVars(
     fs.readFileSync(path.join(__dirname, 'templates', 'single', 'src', 'component.vue')).toString(),
     vars,
   );
+  delete paths.libDev;
   delete paths.libExports;
   paths.component = path.join(savePath, 'src', `${kebabName}.vue`);
 }
@@ -116,6 +120,10 @@ if (mode === 'library') {
     fs.readFileSync(path.join(__dirname, 'templates', 'library', 'src', 'entry.js')).toString(),
     vars,
   );
+  newFiles.libDev = replaceVars(
+    fs.readFileSync(path.join(__dirname, 'templates', 'library', 'src', 'lib-dev.vue')).toString(),
+    vars,
+  );
   newFiles.libExports = replaceVars(
     fs.readFileSync(path.join(__dirname, 'templates', 'library', 'src', 'lib-components', 'index.js')).toString(),
     vars,
@@ -124,6 +132,7 @@ if (mode === 'library') {
     fs.readFileSync(path.join(__dirname, 'templates', 'library', 'src', 'lib-components', 'component.vue')).toString(),
     vars,
   );
+  paths.libDev = path.join(savePath, 'src', 'lib-dev.vue');
   paths.libExports = path.join(savePath, 'src', 'lib-components', 'index.js');
   paths.component = path.join(savePath, 'src', 'lib-components', `${kebabName}-sample.vue`);
 }
