@@ -84,7 +84,7 @@ const paths = {
 // Single component mode
 if (mode === 'component') {
   newFiles.package = replaceVars(
-    fs.readFileSync(path.join(__dirname, 'templates', 'single', 'package.json')).toString(),
+    fs.readFileSync(path.join(__dirname, 'templates', 'single', 'single-package.json')).toString(),
     vars,
   );
   newFiles.rollupConfig = replaceVars(
@@ -109,7 +109,7 @@ if (mode === 'component') {
 // Library mode
 if (mode === 'library') {
   newFiles.package = replaceVars(
-    fs.readFileSync(path.join(__dirname, 'templates', 'library', 'package.json')).toString(),
+    fs.readFileSync(path.join(__dirname, 'templates', 'library', 'library-package.json')).toString(),
     vars,
   );
   newFiles.rollupConfig = replaceVars(
