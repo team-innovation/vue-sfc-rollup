@@ -5,19 +5,24 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-<!--
+
+<!---
 ### Added
 ### Changed
 ### Fixed
 ### Removed
 -->
+
 ### TODO
 - Refactor rollup configs - allow per-compile options
 - Add *browser* property to library-mode package.json for SSR usage
 
 ## [1.0.0] - 2018-10-09
 ### Changed
-- Updated README<!---->.md with library mode usage
+- Updated README<!--- -->.md with library mode usage
+
+### Fixed
+- npm processed template package.json files instead of just including them - renamed
 
 ### Removed
 - Removed unused .gitignore rules
