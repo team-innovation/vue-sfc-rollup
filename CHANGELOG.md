@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Refactor rollup configs - allow per-compile options
 - Add *browser* property to library-mode package.json for SSR usage
 
-## [1.0.0] - 2018-10-09
+## [1.0.0] - 2018-10-10
 ### Changed
 - Updated [README.md](README.md) with library mode usage
 
