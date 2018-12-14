@@ -1,6 +1,7 @@
 // rollup.config.js
 import vue from 'rollup-plugin-vue';
 import buble from 'rollup-plugin-buble';
+import replace from 'rollup-plugin-replace';
 import uglify from 'rollup-plugin-uglify-es';
 import minimist from 'minimist';
 
@@ -13,9 +14,15 @@ const config = {
     exports: 'named',
   },
   plugins: [
+    replace({
+      'process.env.NODE_ENV': JSON.stringify('production')
+    }),
     vue({
       css: true,
       compileTemplate: true,
+      template: {
+        isProduction: true,
+      },
     }),
     buble(),
   ],
