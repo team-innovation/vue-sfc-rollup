@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Refactor rollup configs - allow per-compile options
 - Add *browser* property to library-mode package.json for SSR usage
 
+## [1.0.2] - 2019-01-12
+
+### Fixed
+- avoid bug introduced in [rollup-plugin-vue 4.4.0](https://github.com/vuejs/rollup-plugin-vue/issues/257) - lock in use of v4.3.2 in generated package.json until issue is resolved.
+
 ## [1.0.1] - 2018-12-14
 
 ### Fixed
