@@ -25,7 +25,11 @@ if (GlobalVue) {
   GlobalVue.use(plugin);
 }
 
-// To allow use as module (npm/webpack/etc.) export component
+// Inject install function into component - allows component
+// to be registered via Vue.use() as well as Vue.component()
+component.install = install;
+
+// Export component by default
 export default component;
 
 // It's possible to expose named exports when writing components that can

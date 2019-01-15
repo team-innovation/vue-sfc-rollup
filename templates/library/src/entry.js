@@ -27,5 +27,9 @@ if (GlobalVue) {
   GlobalVue.use(plugin);
 }
 
-// To allow use as module (npm/webpack/etc.) export components
+// Default export is library as a whole, registered via Vue.use()
+export default plugin;
+
+// To allow individual component use, export components
+// each can be registered via Vue.component()
 export * from './lib-components/index';
