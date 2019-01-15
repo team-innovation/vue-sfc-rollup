@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Refactor rollup configs - allow per-compile options
 - Add *browser* property to library-mode package.json for SSR usage
 
+## [1.0.3] - 2019-01-12
+
+### Fixed
+- export install function in lib mode. singe/lib modes can now be registered via both Vue.use() and Vue.component().
+
 ## [1.0.2] - 2019-01-12
 
 ### Fixed
