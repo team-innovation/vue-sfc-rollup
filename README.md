@@ -3,9 +3,19 @@
 vue-sfc-rollup is a utility that scaffolds a minimal setup for compiling a Vue Single File Component (SFC) - or library of multiple SFCs - into a form ready to share via npm.
 
 ## TL;DR
+Install globally
 ```bash
+# Install globally (recommended)
 npm install -g vue-sfc-rollup
 sfc-rollup-init
+```
+**OR** use via npx
+```bash
+# For immediate, no-install usage
+npx vue-sfc-rollup
+```
+Then...
+```bash
 # fill in prompts
 cd path/to/my-component-or-lib
 # if single component
@@ -26,22 +36,24 @@ If you wish to integrate this into an existing SFC, please check out [the vue-sf
 
 ### Install
 
-To install [vue-sfc-rollup](https://www.npmjs.com/package/vue-sfc-rollup), simply open a terminal and execute the following:
+If you just want to try [vue-sfc-rollup](https://www.npmjs.com/package/vue-sfc-rollup), you can run it directly via `npx vue-sfc-rollup`.
+
+For repeated use, however, you really should install it globally. To do so, simply open a terminal and execute the following:
 
 ```bash
 npm install -g vue-sfc-rollup
 ```
 
-Now, whenever you want to start a new component, you can just type `sfc-rollup-init` to run the wizard to scaffold a new SFC for you!
+Now, whenever you want to start a new component, you can just type `sfc-rollup-init` to run the wizard, and it will scaffold a new SFC for you!
 
 ### Using the vue-sfc-rollup wizard
 
-Using the vue-sfc-rollup wizard is simple:
+Using the vue-sfc-rollup wizard is simple. With vue-sfc-rollup installed globally, enter the following:
 ```bash
 sfc-rollup-init
 # fill in prompts
 ```
-The wizard will prompt for the following:
+The wizard will then prompt you for the following:
 
   - *select mode*: Declare whether you want to scaffold a single component or a library of components.
   - *npm name*: This is how people will find your component/library in npm. Please refer to [the official npm docs](https://docs.npmjs.com/files/package.json#name) for details of what to enter here

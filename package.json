@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "ejs": "^2.6.1",
-    "readline-sync": "^1.4.9"
+    "prompts": "^2.0.1"
   },
   "devDependencies": {
     "eslint": "^5.6.0",
