@@ -10,6 +10,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Refactor rollup configs - allow per-compile options
 - Add *browser* property to library-mode package.json for SSR usage
 
+## [1.1.0] - 2019-01-31
+
+### Changed
+- Drop 'readline-sync' for 'prompts' - better UX, allow cli to be canceled
+- Update template dependencies
+  - vue 2.5.22
+  - vue-template-compiler 2.5.21
+  - rollup 1.1.2
+  - rollup-plugin-vue 4.6.2
+  - \*new* rollup-plugin-commonjs 9.2.0 (due to rollup-plugin-vue)
+
 ## [1.0.3] - 2019-01-12
 
 ### Fixed
