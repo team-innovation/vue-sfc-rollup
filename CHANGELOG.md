@@ -7,8 +7,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 ### TODO
-- Refactor rollup configs - allow per-compile options
 - Add *browser* property to library-mode package.json for SSR usage
+
+## [1.1.1] - 2019-03-06
+
+### Changed
+- Drop 'uglify-es' for 'terser' - uglify-es no longer maintained
+- Refactor rollup configs with per-compile options
+- Update template dependencies
+  - vue 2.6.8
+  - vue-template-compiler 2.6.8
+  - rollup 1.4.1
+  - rollup-plugin-vue 4.7.2
+  - rollup-plugin-commonjs 9.2.1
 
 ## [1.1.0] - 2019-01-31
 
