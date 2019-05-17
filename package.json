@@ -9,6 +9,9 @@
   },
   "keywords": [
     "vue",
+    "sfc",
+    "cli",
+    "generator",
     "template",
     "compiler",
     "rollup"
