@@ -3,19 +3,19 @@
   "version": "1.0.0",
   "description": "",
 
-  "main": "dist/<%-componentName%>.umd.js",
+  "main": "dist/<%-componentName%>.ssr.js",
   "module": "dist/<%-componentName%>.esm.js",
   "unpkg": "dist/<%-componentName%>.min.js",
 
   "files": [
     "dist/*",
-    "src/*",
+    "src/**/*.vue",
     "!src/lib-dev.vue"
   ],
 
   "scripts": {
     "build": "cross-env NODE_ENV=production rollup --config build/rollup.config.js",
-    "build:umd": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format umd",
+    "build:ssr": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format cjs",
     "build:es": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format es",
     "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife"
   },
@@ -26,13 +26,13 @@
   "devDependencies": {
     "cross-env": "^5.2.0",
     "minimist": "^1.2.0",
-    "rollup": "^1.4.1",
+    "rollup": "^1.12.1",
     "rollup-plugin-buble": "^0.19.6",
-    "rollup-plugin-commonjs": "^9.2.1",
-    "rollup-plugin-replace": "^2.1.0",
+    "rollup-plugin-commonjs": "^10.0.0",
+    "rollup-plugin-replace": "^2.2.0",
     "rollup-plugin-terser": "^4.0.4",
-    "rollup-plugin-vue": "^4.7.2",
-    "vue": "^2.6.8",
-    "vue-template-compiler": "^2.6.8"
+    "rollup-plugin-vue": "^5.0.0",
+    "vue": "^2.6.10",
+    "vue-template-compiler": "^2.6.10"
   }
 }

@@ -10,20 +10,23 @@ const argv = minimist(process.argv.slice(2));
 
 const baseConfig = {
   input: 'src/entry.js',
-  plugins: [
-    replace({
-      'process.env.NODE_ENV': JSON.stringify('production'),
-    }),
-    commonjs(),
-    vue({
+  plugins: {
+    preVue: [
+      replace({
+        'process.env.NODE_ENV': JSON.stringify('production'),
+      }),
+      commonjs(),
+    ],
+    vue: {
       css: true,
-      compileTemplate: true,
       template: {
         isProduction: true,
       },
-    }),
-    buble(),
-  ],
+    },
+    postVue: [
+      buble(),
+    ],
+  },
 };
 
 // UMD/IIFE shared settings: externals and output.globals
@@ -48,7 +51,9 @@ if (!argv.format || argv.format === 'es') {
       exports: 'named',
     },
     plugins: [
-      ...baseConfig.plugins,
+      ...baseConfig.plugins.preVue,
+      vue(baseConfig.plugins.vue),
+      ...baseConfig.plugins.postVue,
       terser({
         output: {
           ecma: 6,
@@ -59,25 +64,28 @@ if (!argv.format || argv.format === 'es') {
   buildFormats.push(esConfig);
 }
 
-if (!argv.format || argv.format === 'umd') {
+if (!argv.format || argv.format === 'cjs') {
   const umdConfig = {
     ...baseConfig,
     external,
     output: {
       compact: true,
-      file: 'dist/<%-componentName%>.umd.js',
-      format: 'umd',
+      file: 'dist/<%-componentName%>.ssr.js',
+      format: 'cjs',
       name: '<%-componentNamePascal%>',
       exports: 'named',
       globals,
     },
     plugins: [
-      ...baseConfig.plugins,
-      terser({
-        output: {
-          ecma: 6,
+      ...baseConfig.plugins.preVue,
+      vue({
+        ...baseConfig.plugins.vue,
+        template: {
+          ...baseConfig.plugins.vue.template,
+          optimizeSSR: true,
         },
       }),
+      ...baseConfig.plugins.postVue,
     ],
   };
   buildFormats.push(umdConfig);
@@ -96,7 +104,9 @@ if (!argv.format || argv.format === 'iife') {
       globals,
     },
     plugins: [
-      ...baseConfig.plugins,
+      ...baseConfig.plugins.preVue,
+      vue(baseConfig.plugins.vue),
+      ...baseConfig.plugins.postVue,
       terser({
         output: {
           ecma: 5,

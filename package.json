@@ -5,7 +5,7 @@
   "license": "ISC",
   "version": "1.1.1",
   "bin": {
-    "sfc-rollup-init": "./sfc-init.js"
+    "sfc-init": "./sfc-init.js"
   },
   "keywords": [
     "vue",
@@ -23,12 +23,12 @@
   },
   "dependencies": {
     "ejs": "^2.6.1",
-    "prompts": "^2.0.1"
+    "prompts": "^2.0.4"
   },
   "devDependencies": {
-    "eslint": "^5.6.0",
+    "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.14.0"
+    "eslint-plugin-import": "^2.17.2"
   },
   "engines": {
     "node": ">=6"

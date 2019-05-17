@@ -4,10 +4,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [2.0.0] - 2019-05-17
 
-### TODO
-- Add *browser* property to library-mode package.json for SSR usage
+### Added/Fixed
+- Optimized SSR Builds (Single and Library)
+
+### Changed
+- **BREAKING CHANGE**: Command renamed from *sfc-rollup-init* to *sfc-init*
+- Replace 'umd' build with CommonJS 'ssr' build
+  - Browsers still get iife
+  - Modern bundlers get esm
+  - Node.JS/Legacy get ssr
+  - Any scenarios not covered above can transpile esm or raw .vue files directly
+- Refactor template package.json to reflect umd -> ssr changes
+- Update cli dependencies
+  - prompts 2.0.4
+  - eslint 5.16.0
+  - eslint-plugin-import 2.17.2
+- Update template dependencies
+  - vue 2.6.10
+  - vue-template-compiler 2.6.10
+  - rollup 1.12.1
+  - rollup-plugin-vue 5.0.0
+  - rollup-plugin-commonjs 10.0.0
+  - rollup-plugin-replace 2.2.0
 
 ## [1.1.1] - 2019-03-06
 
@@ -48,6 +68,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - build process now runs in 'production' mode by default - smaller, more secure files
 
 ## [1.0.0] - 2018-10-10
+
 ### Changed
 - Updated [README.md](README.md) with library mode usage
 
@@ -58,6 +79,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Removed unused .gitignore rules
 
 ## [1.0.0-alpha.0] - 2018-10-03
+
 ### Added
 - Library mode - ability to scaffold library of components
 - Prompts for single/library mode
@@ -70,6 +92,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Implement eslint, consistent airbnb formatting
 
 ## [0.3.1] - 2018-05-18
+
 ### Added
 - Link to official entry on npm
 - Add licensing information
@@ -81,5 +104,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Removed beta tag
 
 ## [0.3.0] - 2018-04-10
+
 ### Added
 - Initial beta release
