@@ -14,6 +14,21 @@ module.exports = {
           '^./<%-componentName%>.vue'
         ],
       },
-    ]
+    ],
   },
+  overrides: [
+    {
+      files: ['templates/**/entry.js'],
+      rules: {
+        'no-redeclare': 'off',
+        'import/export': 'off',
+      },
+    },
+    {
+      files: ['templates/**/rollup.config.js'],
+      rules: {
+        'import/no-extraneous-dependencies': 'off',
+      },
+    },
+  ],
 };
