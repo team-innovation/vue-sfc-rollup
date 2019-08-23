@@ -24,18 +24,18 @@
   "scripts": {
     "lint": "eslint ./**/*.js"
   },
-    "husky": {
-        "hooks": {
-            "pre-commit": "npm run lint",
-            "pre-push": "npm audit"
-        }
-    },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint",
+      "pre-push": "npm audit"
+    }
+  },
   "dependencies": {
     "ejs": "^2.6.2",
     "prompts": "^2.2.1"
   },
   "devDependencies": {
-    "eslint": "^6.1.0",
+    "eslint": "^6.2.1",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
     "husky": "^3.0.3"
