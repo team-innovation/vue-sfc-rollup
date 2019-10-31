@@ -3,7 +3,7 @@
   "description": "Quickly generate redistributable components with Rollup",
   "author": "Michael Dodge",
   "license": "ISC",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "bin": {
     "sfc-init": "./sfc-init.js"
   },
@@ -31,14 +31,14 @@
     }
   },
   "dependencies": {
-    "ejs": "^2.6.2",
+    "ejs": "^2.7.1",
     "prompts": "^2.2.1"
   },
   "devDependencies": {
-    "eslint": "^6.2.1",
+    "eslint": "^6.6.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
-    "husky": "^3.0.3"
+    "husky": "^3.0.9"
   },
   "engines": {
     "node": ">=6"

@@ -29,12 +29,15 @@ const baseConfig = {
   },
 };
 
-// UMD/IIFE shared settings: externals and output.globals
-// Refer to https://rollupjs.org/guide/en#output-globals for details
+// ESM/UMD/IIFE shared settings: externals
+// Refer to https://rollupjs.org/guide/en/#warning-treating-module-as-external-dependency
 const external = [
   // list external dependencies, exactly the way it is written in the import statement.
   // eg. 'jquery'
 ];
+
+// UMD/IIFE shared settings: output.globals
+// Refer to https://rollupjs.org/guide/en#output-globals for details
 const globals = {
   // Provide global variable names to replace your external imports
   // eg. jquery: '$'
@@ -45,6 +48,7 @@ const buildFormats = [];
 if (!argv.format || argv.format === 'es') {
   const esConfig = {
     ...baseConfig,
+    external,
     output: {
       file: 'dist/<%-componentName%>.esm.js',
       format: 'esm',

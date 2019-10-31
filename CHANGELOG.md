@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [2.0.1] - 2019-10-31
+
+### Fixed
+- Avoid bug introduced in [rollup-plugin-vue 5.1.2](https://github.com/vuejs/rollup-plugin-vue/issues/303) - lock in use of v5.1.1 in generated package.json until issue is resolved.
+
+### Changed
+- Rollup config updates in single/lib modes - 'external' missing from esm build config
+- Update template dependencies
+  - cross-env 6.0.3
+  - rollup 1.26.1
+  - rollup-plugin-commonjs 10.1.0
+  - rollup-plugin-terser 5.1.2
+  - rollup-plugin-vue 5.1.1
+
+### Added
+- New/updated tooling for cli development
+
 ## [2.0.0] - 2019-05-17
 
 ### Added/Fixed
