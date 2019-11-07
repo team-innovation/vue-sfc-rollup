@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2019-11-07
+
+### Added/Fixed
+- Vue cli aliases '@' to './src' for imports, add capability to rollup config for feature parity
+
+### Changed
+- Do not minify esm build - upstream bundlers should handle this 
+- Update template dependencies
+  - **NEW** @rollup/plugin-alias 2.2.0
+  - rollup 1.26.3
+  - rollup-plugin-buble > @rollup/plugin-buble 0.20.0
+  - rollup-plugin-replace > @rollup/plugin-replace 2.2.1
+
+### Added
+- New/updated tooling for cli development
+
 ## [2.0.1] - 2019-10-31
 
 ### Fixed

@@ -22,12 +22,14 @@ module.exports = {
       rules: {
         'no-redeclare': 'off',
         'import/export': 'off',
+        'import/no-unresolved': 'off',
       },
     },
     {
       files: ['templates/**/rollup.config.js'],
       rules: {
         'import/no-extraneous-dependencies': 'off',
+        'import/no-unresolved': 'off',
       },
     },
   ],

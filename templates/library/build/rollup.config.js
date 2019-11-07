@@ -1,12 +1,16 @@
 // rollup.config.js
+import path from 'path';
 import vue from 'rollup-plugin-vue';
-import buble from 'rollup-plugin-buble';
+import alias from '@rollup/plugin-alias';
+import buble from '@rollup/plugin-buble';
 import commonjs from 'rollup-plugin-commonjs';
-import replace from 'rollup-plugin-replace';
+import replace from '@rollup/plugin-replace';
 import { terser } from 'rollup-plugin-terser';
 import minimist from 'minimist';
 
 const argv = minimist(process.argv.slice(2));
+
+const projectRoot = path.resolve(__dirname, '..');
 
 const baseConfig = {
   input: 'src/entry.js',
@@ -16,6 +20,12 @@ const baseConfig = {
         'process.env.NODE_ENV': JSON.stringify('production'),
       }),
       commonjs(),
+      alias({
+        resolve: ['.jsx', '.js', '.vue'],
+        entries: {
+          '@': path.resolve(projectRoot, 'src'),
+        },
+      }),
     ],
     vue: {
       css: true,
@@ -58,11 +68,6 @@ if (!argv.format || argv.format === 'es') {
       ...baseConfig.plugins.preVue,
       vue(baseConfig.plugins.vue),
       ...baseConfig.plugins.postVue,
-      terser({
-        output: {
-          ecma: 6,
-        },
-      }),
     ],
   };
   buildFormats.push(esConfig);

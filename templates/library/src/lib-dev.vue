@@ -1,5 +1,5 @@
 <script>
-import { <%-componentNamePascal%>Sample } from './entry';
+import { <%-componentNamePascal%>Sample } from '@/entry';
 export default {
     name:  '<%-componentNamePascal%>LibDev', // vue library dev component
     components: {

@@ -1,5 +1,5 @@
 // Import vue components
-import * as components from './lib-components/index';
+import * as components from '@/lib-components/index';
 
 // install function executed by Vue.use()
 function install(Vue) {
@@ -32,4 +32,4 @@ export default plugin;
 
 // To allow individual component use, export components
 // each can be registered via Vue.component()
-export * from './lib-components/index';
+export * from '@/lib-components/index';
