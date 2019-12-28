@@ -4,13 +4,42 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] - 2019-12-28
+
+### Added
+- Add ability to generate typescript-based components/libraries
+- Generated components/libraries now both use `npm run serve` for rapid development (via `vue-cli-service`)
+- Generate default `.browserslistrc` file
+- Replace buble with babel - seeing this more ecosystem-wide
+  - Allows optional chaining, nullish coalescing support, and other modern language features
+  - Allows better browser targeting via `.browserslistrc` file
+  - Output isn't necessarily larger with proper configuration via `.browserslistrc`
+
+### Changed
+- Update template dependencies
+  - **NEW** @babel/core 7.7.7
+  - **NEW** @babel/plugin-proposal-nullish-coalescing-operator 7.7.4
+  - **NEW** @babel/plugin-proposal-optional-chaining 7.7.5
+  - **NEW** @babel/preset-env 7.7.7
+  - **NEW** @vue/cli-plugin-babel 4.1.0
+  - **NEW** @vue/cli-service 4.1.0
+  - **NEW** rollup-plugin-babel 4.3.3
+  - rollup 1.27.13
+  - rollup-plugin-terser 5.1.3
+- Added new template dependencies for typescript-based projects
+  - @babel/preset-typescript 7.7.7
+  - @vue/cli-plugin-typescript 4.1.0
+  - typescript 3.7.3
+- Cli development code refactor/cleanup
+
+
 ## [2.1.0] - 2019-11-07
 
 ### Added/Fixed
 - Vue cli aliases '@' to './src' for imports, add capability to rollup config for feature parity
 
 ### Changed
-- Do not minify esm build - upstream bundlers should handle this 
+- Do not minify esm build - upstream bundlers should handle this
 - Update template dependencies
   - **NEW** @rollup/plugin-alias 2.2.0
   - rollup 1.26.3
