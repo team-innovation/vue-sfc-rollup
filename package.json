@@ -3,7 +3,7 @@
   "description": "Quickly generate redistributable components with Rollup",
   "author": "Michael Dodge",
   "license": "ISC",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "bin": {
     "sfc-init": "./sfc-init.js"
   },
@@ -19,6 +19,7 @@
   "homepage": "https://github.com/team-innovation/vue-sfc-rollup",
   "files": [
     "templates/*",
+    "lib/*",
     "sfc-init.js"
   ],
   "scripts": {

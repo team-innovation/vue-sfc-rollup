@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [2.2.1] - 2019-12-31
+
+### Fixed
+- Updated package.json with missing file
+
 ## [2.2.0] - 2019-12-28
 
 ### Added
@@ -31,7 +36,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   - @vue/cli-plugin-typescript 4.1.0
   - typescript 3.7.3
 - Cli development code refactor/cleanup
-
 
 ## [2.1.0] - 2019-11-07
 
