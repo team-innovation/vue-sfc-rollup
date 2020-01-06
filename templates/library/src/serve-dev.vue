@@ -3,7 +3,7 @@ import Vue from 'vue';
 import { <%-componentNamePascal%>Sample } from '@/entry';
 
 export default Vue.extend({
-  name: 'app',
+  name: 'ServeDev',
   components: {
     <%-componentNamePascal%>Sample,
   }

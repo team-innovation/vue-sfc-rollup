@@ -7,6 +7,7 @@ import * as components from '@/lib-components/index';
 
 <% if (ts) { -%>
 // Define typescript interfaces for autoinstaller
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 interface InstallFunction extends PluginFunction<any> {
   installed?: boolean;
 }
@@ -31,12 +32,14 @@ const plugin = {
 };
 
 // To auto-install when vue is found
-/* global window global */
+// eslint-disable-next-line no-redeclare
+/* global window, global */
 let GlobalVue = null;
 if (typeof window !== 'undefined') {
   GlobalVue = window.Vue;
 } else if (typeof global !== 'undefined') {
 <% if (ts) { -%>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   GlobalVue = (global as any).Vue;
 <% } else { -%>
   GlobalVue = global.Vue;

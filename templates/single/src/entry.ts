@@ -7,6 +7,7 @@ import component from '@/<%-componentName%>.vue';
 
 <% if (ts) { -%>
 // Define typescript interfaces for autoinstaller
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 interface InstallFunction extends PluginFunction<any> {
   installed?: boolean;
 }
@@ -32,12 +33,14 @@ const plugin = {
 };
 
 // To auto-install when vue is found
-/* global window global */
+// eslint-disable-next-line no-redeclare
+/* global window, global */
 let GlobalVue = null;
 if (typeof window !== 'undefined') {
   GlobalVue = window.Vue;
 } else if (typeof global !== 'undefined') {
 <% if (ts) { -%>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   GlobalVue = (global as any).Vue;
 <% } else { -%>
   GlobalVue = global.Vue;
@@ -54,6 +57,7 @@ if (GlobalVue) {
 // Inject install function into component - allows component
 // to be registered via Vue.use() as well as Vue.component()
 <% if (ts) { -%>
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 (component as any as InstallableComponent).install = install;
 <% } else { -%>
 component.install = install;
