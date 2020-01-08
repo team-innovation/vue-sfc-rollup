@@ -32,8 +32,10 @@
     }
   },
   "dependencies": {
+    "chalk": "^3.0.0",
     "ejs": "^2.7.1",
-    "prompts": "^2.2.1"
+    "prompts": "^2.2.1",
+    "update-check": "^1.5.3"
   },
   "devDependencies": {
     "eslint": "^6.6.0",
