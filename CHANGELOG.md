@@ -7,9 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [2.3.0] - Pending
 
 ### Added
+- Add `browser` field to package.json for bundlers which prefer it to `module` field (eg. codesandbox - see [discussion here](https://github.com/codesandbox/codesandbox-client/issues/3305))
 - Notify users of new releases
   - **NEW** chalk 3.0.0
   - **NEW** update-check 1.5.3
+
+### Changed
+- Update template dependency
+  - rollup-plugin-vue 5.1.5 ([breaking change from 5.1.2 has been resolved](https://github.com/vuejs/rollup-plugin-vue/issues/303))
 
 ## [2.2.2] - 2020-01-08
 

@@ -15,9 +15,9 @@ interface InstallFunction extends PluginFunction<any> {
 <% } -%>
 // install function executed by Vue.use()
 <% if (ts) { -%>
-const install: InstallFunction = function(Vue: typeof _Vue) {
+const install: InstallFunction = function install<%-componentNamePascal%>(Vue: typeof _Vue) {
 <% } else { -%>
-const install = function(Vue) {
+const install = function install<%-componentNamePascal%>(Vue) {
 <% } -%>
   if (install.installed) return;
   install.installed = true;

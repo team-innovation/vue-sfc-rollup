@@ -4,6 +4,7 @@
   "description": "",
 
   "main": "dist/<%-componentName%>.ssr.js",
+  "browser": "dist/<%-componentName%>.esm.js",
   "module": "dist/<%-componentName%>.esm.js",
   "unpkg": "dist/<%-componentName%>.min.js",
 <% if (ts) { -%>
@@ -51,7 +52,7 @@
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-terser": "^5.1.3",
-    "rollup-plugin-vue": "5.1.1",
+    "rollup-plugin-vue": "^5.1.5",
 <% if (ts) { -%>
     "typescript": "^3.7.3",
 <% } -%>
