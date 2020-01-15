@@ -4,18 +4,15 @@ const path = require('path');
 const fs = require('fs');
 const prompts = require('prompts');
 const ejs = require('ejs');
+const chalk = require('chalk');
+const updateCheck = require('update-check');
 
+const pkg = require('./package');
 const helpers = require('./lib/helpers');
-
-// Create cancel function to exit the process
-function onCancel() {
-  // eslint-disable-next-line no-console
-  console.log('User canceled. Goodbye!');
-  process.exit();
-}
 
 // Prepare container for response data
 const responses = {
+  update: false,
   mode: '',
   npmName: '',
   componentName: '',
@@ -23,7 +20,40 @@ const responses = {
   savePath: '',
 };
 
+// Create function to display update notification at script completion
+function displayUpdateMessage() {
+  /* eslint-disable no-console */
+  if (responses.update) {
+    const { latest } = responses.update;
+    if (latest) console.log(`\r\n${chalk.black.bgRed(' UPDATE AVAILABLE ')}${chalk.red('-->')} The latest version of ${pkg.name} is ${chalk.yellow(latest)}\r\n`);
+  }
+  /* eslint-enable no-console */
+}
+
+// Create cancel function to exit the process
+function onCancel() {
+  // eslint-disable-next-line no-console
+  console.log('User canceled. Goodbye!');
+  displayUpdateMessage();
+  process.exit();
+}
+
 // Create async prompt functions
+async function checkForUpdates() {
+  let update = null;
+  try {
+    update = await updateCheck(pkg);
+  } catch (err) {
+    const errIntro = ` ${pkg.name} failed to check for updates `;
+    // eslint-disable-next-line no-console
+    console.error(`\r\n${chalk.black.bgRed(errIntro)}${chalk.red('-->')} ${err}\r\n`);
+    update = null;
+  }
+
+  if (update) {
+    responses.update = update;
+  }
+}
 async function getMode() {
   const question = {
     type: 'select',
@@ -229,10 +259,12 @@ function scaffold(data) {
 }
 
 // Begin asking for input, then scaffold
-getMode()
+checkForUpdates()
+  .then(getMode)
   .then(getName)
   .then(getLanguage)
   .then(getSavePath)
   .then(() => {
     scaffold(responses);
+    displayUpdateMessage();
   });
