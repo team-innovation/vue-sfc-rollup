@@ -26,7 +26,6 @@ const baseConfig = {
       replace({
         'process.env.NODE_ENV': JSON.stringify('production'),
       }),
-      commonjs(),
       alias({
         resolve: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
         entries: {
@@ -88,6 +87,7 @@ if (!argv.format || argv.format === 'es') {
           ],
         ],
       }),
+      commonjs(),
     ],
   };
   buildFormats.push(esConfig);
@@ -115,6 +115,7 @@ if (!argv.format || argv.format === 'cjs') {
         },
       }),
       babel(baseConfig.plugins.babel),
+      commonjs(),
     ],
   };
   buildFormats.push(umdConfig);
@@ -136,6 +137,7 @@ if (!argv.format || argv.format === 'iife') {
       ...baseConfig.plugins.preVue,
       vue(baseConfig.plugins.vue),
       babel(baseConfig.plugins.babel),
+      commonjs(),
       terser({
         output: {
           ecma: 5,

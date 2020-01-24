@@ -2,40 +2,66 @@
 <% if (ts) { -%>
 import Vue from 'vue';
 
+interface SampleData {
+  counter: number;
+  initCounter: number;
+  message: {
+    action: string | null;
+    amount: number | null;
+  };
+}
+
 export default Vue.extend({
 <% } else { -%>
 export default {
 <% } -%>
   name: '<%-componentNamePascal%>Sample', // vue component name
-  data() {
+  data()<% if (ts) { %>: SampleData<% } %> {
     return {
       counter: 5,
       initCounter: 5,
+      message: {
+        action: null,
+        amount: null,
+      },
     };
+  },
+  computed: {
+    changedBy() {
+      const { message } = this<% if (ts) { %> as SampleData<% } %>;
+      if (!message.action) return 'initialized';
+      return `${message?.action} ${message.amount ?? ''}`.trim();
+    },
   },
   methods: {
     increment(arg<% if (ts) { %>: Event | number<% } %>)<% if (ts) { %>: void<% } %> {
-      if (typeof arg !== 'number') this.counter += 1;
-      else this.counter += arg;
+      const amount = (typeof arg !== 'number') ? 1 : arg;
+      this.counter += amount;
+      this.message.action = 'incremented by';
+      this.message.amount = amount;
     },
     decrement(arg<% if (ts) { %>: Event | number<% } %>)<% if (ts) { %>: void<% } %> {
-      if (typeof arg !== 'number') this.counter -= 1;
-      else this.counter -= arg;
+      const amount = (typeof arg !== 'number') ? 1 : arg;
+      this.counter -= amount;
+      this.message.action = 'decremented by';
+      this.message.amount = amount;
     },
     reset()<% if (ts) { %>: void<% } %> {
       this.counter = this.initCounter;
-    }
+      this.message.action = 'reset';
+      this.message.amount = null;
+    },
   },
 <% if (ts) { -%>
-})
+});
 <% } else { -%>
-}
+};
 <% } -%>
 </script>
 
 <template>
   <div class="<%-componentName%>-sample">
-    <p>The counter is set to <b>{{ counter }}</b>.</p>
+    <p>The counter was {{ changedBy }} to <b>{{ counter }}</b>.</p>
     <button @click="increment">
       Click +1
     </button>
