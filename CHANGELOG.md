@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [2.3.1] - 2020-01-24
+
+### Changed
+- Removed babel plugin dependencies that are now in babel core
+  - **REMOVED** @babel/plugin-proposal-optional-chaining
+  - **REMOVED** @babel/plugin-proposal-nullish-coalescing-operator
+
+### Fixed
+- Changed order of rollup plugins (@rollup/plugin-commonjs) in templates to prevent failed build when using some babel features (optional chaining/nullish coalescing)
+
 ## [2.3.0] - 2020-01-15
 
 ### Added
