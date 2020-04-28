@@ -23,9 +23,6 @@ const baseConfig = {
   input: 'src/entry.<% if (ts) {%>ts<% } else { %>js<% } %>',
   plugins: {
     preVue: [
-      replace({
-        'process.env.NODE_ENV': JSON.stringify('production'),
-      }),
       alias({
         resolve: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
         entries: {
@@ -33,6 +30,10 @@ const baseConfig = {
         },
       }),
     ],
+    replace: {
+      'process.env.NODE_ENV': JSON.stringify('production'),
+      'process.env.ES_BUILD': JSON.stringify('false'),
+    },
     vue: {
       css: true,
       template: {
@@ -74,6 +75,10 @@ if (!argv.format || argv.format === 'es') {
       exports: 'named',
     },
     plugins: [
+      replace({
+        ...baseConfig.plugins.replace,
+        'process.env.ES_BUILD': JSON.stringify('true'),
+      }),
       ...baseConfig.plugins.preVue,
       vue(baseConfig.plugins.vue),
       babel({
@@ -106,6 +111,7 @@ if (!argv.format || argv.format === 'cjs') {
       globals,
     },
     plugins: [
+      replace(baseConfig.plugins.replace),
       ...baseConfig.plugins.preVue,
       vue({
         ...baseConfig.plugins.vue,
@@ -134,6 +140,7 @@ if (!argv.format || argv.format === 'iife') {
       globals,
     },
     plugins: [
+      replace(baseConfig.plugins.replace),
       ...baseConfig.plugins.preVue,
       vue(baseConfig.plugins.vue),
       babel(baseConfig.plugins.babel),

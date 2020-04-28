@@ -32,26 +32,28 @@ const plugin = {
   install,
 };
 
-// To auto-install when vue is found
+// To auto-install on non-es builds, when vue is found
 // eslint-disable-next-line no-redeclare
 /* global window, global */
-let GlobalVue = null;
-if (typeof window !== 'undefined') {
-  GlobalVue = window.Vue;
-} else if (typeof global !== 'undefined') {
+if ('false' === process.env.ES_BUILD) {
+  let GlobalVue = null;
+  if (typeof window !== 'undefined') {
+    GlobalVue = window.Vue;
+  } else if (typeof global !== 'undefined') {
 <% if (ts) { -%>
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  GlobalVue = (global as any).Vue;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    GlobalVue = (global as any).Vue;
 <% } else { -%>
-  GlobalVue = global.Vue;
+    GlobalVue = global.Vue;
 <% } -%>
-}
-if (GlobalVue) {
+  }
+  if (GlobalVue) {
 <% if (ts) { -%>
-  (GlobalVue as typeof _Vue).use(plugin);
+    (GlobalVue as typeof _Vue).use(plugin);
 <% } else { -%>
-  GlobalVue.use(plugin);
+    GlobalVue.use(plugin);
 <% } -%>
+  }
 }
 
 // Inject install function into component - allows component
