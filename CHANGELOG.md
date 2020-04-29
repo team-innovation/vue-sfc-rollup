@@ -4,6 +4,37 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [3.0.0] - 2020-04-29
+
+### Changed
+- **BREAKING CHANGE**: Drop support for node 8
+- Update template dependencies
+  - @babel/core 7.9.0
+  - @babel/preset-env 7.9.5
+  - @babel/preset-typescript 7.9.0
+  - @rollup/plugin-alias 2.2.0
+  - @rollup/plugin-commonjs 11.1.0
+  - @rollup/plugin-replace 2.3.2
+  - @vue/cli-plugin-babel 4.3.1
+  - @vue/cli-plugin-typescript 4.3.1
+  - @vue/cli-service 4.3.1
+  - cross-env 7.0.2
+  - minimist 1.2.5
+  - rollup 2.7.3
+  - rollup-plugin-babel 4.4.0
+  - rollup-plugin-terser 5.3.0
+  - rollup-plugin-vue 5.1.6
+  - typescript 3.8.3
+  - vue 2.6.11
+  - vue-template-compiler 2.6.11
+
+### Fixed
+- **BREAKING CHANGE**: Remove auto-install logic/output from esm output
+  - This is _part_ of a bug [#39](https://github.com/team-innovation/vue-sfc-rollup/issues/39), preventing proper tree-shaking of esm builds. Resolution explained [here](https://github.com/webpack/webpack/issues/9614). Related bug reported to rollup-plugin-vue [here](https://github.com/vuejs/rollup-plugin-vue/issues/344).
+- Renamed template files `src/serve-dev.{vue|js|ts}` to `dev/serve.{vue|js|ts}`
+  - Removes need to explicitly ignore it from npm bundle
+  - Resolves bug [#40](https://github.com/team-innovation/vue-sfc-rollup/issues/39) with yarn and package.json `files` array rules containing negate flag
+
 ## [2.3.1] - 2020-01-24
 
 ### Changed
