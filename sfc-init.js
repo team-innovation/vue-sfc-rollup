@@ -171,8 +171,8 @@ function scaffold(data) {
     common: [
       'build/rollup.config.js',
       { 'src/entry.ts': `src/entry.${data.language}` },
-      { 'src/serve-dev.ts': `src/serve-dev.${data.language}` },
-      'src/serve-dev.vue',
+      { 'dev/serve.ts': `dev/serve.${data.language}` },
+      'dev/serve.vue',
       '.browserslistrc',
       'babel.config.js',
       (data.language === 'ts') ? 'shims-tsx.d.ts' : null,

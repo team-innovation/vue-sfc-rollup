@@ -3,7 +3,7 @@ import Vue, { VNode } from 'vue';
 <% } else { -%>
 import Vue from 'vue';
 <% } -%>
-import Dev from '@/serve-dev.vue';
+import Dev from './serve.vue';
 
 Vue.config.productionTip = false;
 
