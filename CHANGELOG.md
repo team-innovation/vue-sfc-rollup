@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [3.0.1] - Pending
+
+### Fixed
+- Fixes [#41](https://github.com/team-innovation/vue-sfc-rollup/issues/41) - Update babel.config.js to fix dev mode via vue-cli-service
+  - Dev mode uses @vue/babel-preset-app
+  - Build mode uses @babel/preset-env and @babel/preset-typescript (if writing typescript)
+
 ## [3.0.0] - 2020-04-29
 
 ### Changed
