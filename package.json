@@ -23,7 +23,7 @@
     "sfc-init.js"
   ],
   "scripts": {
-    "lint": "eslint ./**/*.js"
+    "lint": "eslint ./**/*.js ./**/.*.js"
   },
   "husky": {
     "hooks": {
@@ -32,15 +32,15 @@
     }
   },
   "dependencies": {
-    "chalk": "^4.0.0",
-    "ejs": "^3.1.2",
+    "chalk": "^4.1.0",
+    "ejs": "^3.1.5",
     "prompts": "^2.3.2",
     "update-check": "^1.5.4"
   },
   "devDependencies": {
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb-base": "^14.1.0",
-    "eslint-plugin-import": "^2.20.2",
+    "eslint": "^7.7.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0",
     "husky": "^4.2.5"
   },
   "engines": {

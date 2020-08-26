@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
   extends: [
-    "airbnb-base",
+    'airbnb-base',
   ],
   rules: {
     // Ignore unresolved imports in template files
@@ -11,7 +11,7 @@ module.exports = {
         ignore: [
           '^rollup-plugin*',
           '^./components',
-          '^./<%-componentName%>.vue'
+          '^./<%-componentName%>.vue',
         ],
       },
     ],
