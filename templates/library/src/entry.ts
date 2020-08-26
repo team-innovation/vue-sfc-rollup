@@ -1,62 +1,51 @@
-<% if (ts) { -%>
-import _Vue, { PluginFunction } from 'vue';
+<% if (ts) {
+if (version === 3) { -%>
+import { defineComponent, Plugin } from 'vue';
 
-<% } -%>
-// Import vue components
-import * as components from '@/lib-components/index';
-
-<% if (ts) { -%>
-// Define typescript interfaces for autoinstaller
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-interface InstallFunction extends PluginFunction<any> {
-  installed?: boolean;
-}
-
-<% } -%>
-// install function executed by Vue.use()
-<% if (ts) { -%>
-const install: InstallFunction = function install<%-componentNamePascal%>(Vue: typeof _Vue) {
 <% } else { -%>
-const install = function install<%-componentNamePascal%>(Vue) {
+import _Vue from 'vue';
+
+<% }
+} -%>
+// iife/cjs usage extends esm default export - so import it all
+// import * as components from '@/lib-components/index';
+import plugin, * as components from '@/entry.esm';
+
+// Attach named exports directly to component. IIFE/CJS will
+// only expose one global var, with named exports exposed as properties of
+// that global var (eg. VivintIcon.iconList)
+<% if (ts && version === 3) { -%>
+type PluginObject = Plugin & { [key: string]: ReturnType<typeof defineComponent>; };
 <% } -%>
-  if (install.installed) return;
-  install.installed = true;
-  Object.entries(components).forEach(([componentName, component]) => {
-    Vue.component(componentName, component);
-  });
-};
+Object.entries(components).forEach(([componentName, component]) => {
+<% if (ts && version === 3) { -%>
+  if (componentName !== 'default') (plugin as PluginObject)[componentName] = component as any as ReturnType<typeof defineComponent>;
+<% } else { -%>
+  if (componentName !== 'default') plugin[componentName] = component;
+<% } -%>
+});
 
-// Create module definition for Vue.use()
-const plugin = {
-  install,
-};
-
+export default plugin;
+<% if (version === 2) { -%>
 // To auto-install on non-es builds, when vue is found
 // eslint-disable-next-line no-redeclare
 /* global window, global */
-if ('false' === process.env.ES_BUILD) {
-  let GlobalVue = null;
-  if (typeof window !== 'undefined') {
-    GlobalVue = window.Vue;
-  } else if (typeof global !== 'undefined') {
+let GlobalVue = null;
+if (typeof window !== 'undefined') {
+  GlobalVue = window.Vue;
+} else if (typeof global !== 'undefined') {
 <% if (ts) { -%>
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    GlobalVue = (global as any).Vue;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  GlobalVue = (global as any).Vue;
 <% } else { -%>
-    GlobalVue = global.Vue;
+  GlobalVue = global.Vue;
 <% } -%>
-  }
-  if (GlobalVue) {
+}
+if (GlobalVue) {
 <% if (ts) { -%>
-    (GlobalVue as typeof _Vue).use(plugin);
+  (GlobalVue as typeof _Vue).use(plugin);
 <% } else { -%>
     GlobalVue.use(plugin);
 <% } -%>
-  }
 }
-// Default export is library as a whole, registered via Vue.use()
-export default plugin;
-
-// To allow individual component use, export components
-// each can be registered via Vue.component()
-export * from '@/lib-components/index';
+<% } -%>
