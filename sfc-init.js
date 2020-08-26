@@ -195,7 +195,7 @@ function scaffold(data) {
       'dev/serve.vue',
       '.browserslistrc',
       'babel.config.js',
-      (data.language === 'ts') ? 'shims-tsx.d.ts' : null,
+      (data.language === 'ts' && data.version === 2) ? 'shims-tsx.d.ts' : null,
       (data.language === 'ts') ? 'shims-vue.d.ts' : null,
       (data.language === 'ts') ? 'tsconfig.json' : null,
     ],

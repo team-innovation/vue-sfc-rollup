@@ -1,4 +1,6 @@
-<% if (ts) { -%>
+<% if (version === 3) { -%>
+import { App, defineComponent, Plugin } from 'vue';
+<% } else if (ts) { -%>
 import _Vue, { PluginFunction, PluginObject, VueConstructor } from 'vue';
 
 <% } -%>
@@ -7,18 +9,24 @@ import component from '@/<%-componentName%>.vue';
 
 <% if (ts) { -%>
 // Define typescript interfaces for installable component
+<% if (version === 3) { -%>
+type InstallFunction = Plugin['install'] & { installed?: boolean }
+type InstallableComponent = ReturnType<typeof defineComponent> & { install: InstallFunction };
+<% } else { -%>
+type InstallFunction = PluginFunction<any> & { installed?: boolean }
 type InstallableComponent = VueConstructor<_Vue> & PluginObject<any>;
+<% } -%>
 
 <% } -%>
 // install function executed by Vue.use()
 <% if (ts) { -%>
-const install: PluginFunction<any> & { installed?: boolean } = function install<%-componentNamePascal%>(Vue: typeof _Vue) {
+const install: InstallFunction = function install<%-componentNamePascal%>(<% if (version === 3) { %>app: App<% } else { %>Vue: typeof _Vue<% } %>) {
 <% } else { -%>
-const install = function install<%-componentNamePascal%>(Vue) {
+const install = function install<%-componentNamePascal%>(<% if (version === 3) { %>app<% } else { %>Vue<% } %>) {
 <% } -%>
   if (install.installed) return;
   install.installed = true;
-  Vue.component('<%-componentNamePascal%>', component);
+  <% if (version === 3) { %>app<% } else { %>Vue<% } %>.component('<%-componentNamePascal%>', component);
 };
 
 // Inject install function into component - allows component

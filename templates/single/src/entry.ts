@@ -1,4 +1,4 @@
-<% if (ts) { -%>
+<% if (ts && version === 2) { -%>
 import _Vue from 'vue';
 
 <% } -%>
