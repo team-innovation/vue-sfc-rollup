@@ -48,7 +48,7 @@
     "minimist": "^1.2.5",
     "rollup": "^2.7.3",
     "rollup-plugin-babel": "^4.4.0",
-    "rollup-plugin-terser": "^5.3.0",
+    "rollup-plugin-terser": "^7.0.1",
     "rollup-plugin-vue": "^5.1.6",
 <% if (ts) { -%>
     "typescript": "^3.8.3",
