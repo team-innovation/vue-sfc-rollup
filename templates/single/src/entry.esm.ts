@@ -1,6 +1,7 @@
-<% if (version === 3) { -%>
+<% if (ts && version === 3) { -%>
 import { App, defineComponent, Plugin } from 'vue';
-<% } else if (ts) { -%>
+
+<% } else if (ts && version === 2) { -%>
 import _Vue, { PluginFunction, PluginObject, VueConstructor } from 'vue';
 
 <% } -%>
