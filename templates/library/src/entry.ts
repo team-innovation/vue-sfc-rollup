@@ -1,12 +1,7 @@
-<% if (ts) {
-if (version === 3) { -%>
+<% if (ts && version === 3) { -%>
 import { defineComponent, Plugin } from 'vue';
 
-<% } else { -%>
-import _Vue from 'vue';
-
-<% }
-} -%>
+<% } -%>
 // iife/cjs usage extends esm default export - so import it all
 // import * as components from '@/lib-components/index';
 import plugin, * as components from '@/entry.esm';
@@ -26,26 +21,3 @@ Object.entries(components).forEach(([componentName, component]) => {
 });
 
 export default plugin;
-<% if (version === 2) { -%>
-// To auto-install on non-es builds, when vue is found
-// eslint-disable-next-line no-redeclare
-/* global window, global */
-let GlobalVue = null;
-if (typeof window !== 'undefined') {
-  GlobalVue = window.Vue;
-} else if (typeof global !== 'undefined') {
-<% if (ts) { -%>
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  GlobalVue = (global as any).Vue;
-<% } else { -%>
-  GlobalVue = global.Vue;
-<% } -%>
-}
-if (GlobalVue) {
-<% if (ts) { -%>
-  (GlobalVue as typeof _Vue).use(plugin);
-<% } else { -%>
-    GlobalVue.use(plugin);
-<% } -%>
-}
-<% } -%>

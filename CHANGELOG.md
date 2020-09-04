@@ -4,6 +4,39 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [4.0.0-beta.0] - 2020-09-04
+- **NEW**: Vue 3 support! Select target version of Vue - components compiled for Vue 3 are not compatible with Vue 2
+- Update cli dependencies
+  - chalk 4.1.0
+  - ejs 3.1.5
+  - eslint 7.7.0
+  - eslint-config-airbnb-base 14.2.0
+  - eslint-plugin-import 2.22.0
+- Update templates depending on Vue version selected
+  - **BREAKING CHANGE**: Remove auto-install logic/output entirely
+    - Auto-install has become an anti-pattern, since Vue 3 will not allow registering components/libraries globally
+  - **BREAKING CHANGE**: Non-esm builds now attach named exports as properties of the default export
+    - Nodejs/browser usage is now registered via `Vue.use(globalVar)` instead of `Vue.use(globalVar.default)`, with named exports still accessed as `globalVar.named1`, `globalVar.named2` etc.
+- Update template dependencies
+  - @babel/core 7.11.0
+  - @babel/preset-env 7.11.0
+  - @babel/preset-typescript 7.10.4
+  - @rollup/plugin-alias 3.1.1
+  - @rollup/plugin-babel 5.2.0
+  - @rollup/plugin-commonjs 14.0.0
+  - **NEW** @rollup/node-resolve 9.0.0
+  - @rollup/plugin-replace 2.3.3
+  - @vue/cli-plugin-babel 4.5.4
+  - @vue/cli-plugin-typescript 4.5.4
+  - @vue/cli-service 4.5.4
+  - @vue/compiler-sfc 3.0.0-rc.9 (Vue 3 only)
+  - rollup 2.26.5
+  - **NEW** rollup-plugin-postcss 3.1.6 (Vue 3 only)
+  - rollup-plugin-terser 7.0.0
+  - rollup-plugin-vue 5.1.9 (Vue 2) / 6.0.0-beta.10 (Vue 3)
+  - vue 2.6.12 (Vue 2) / 3.0.0-rc.9 (Vue 3)
+  - vue-template-compiler 2.6.12 (Vue 2 only)
+
 ## [3.0.1] - 2020-06-05
 
 ### Fixed
