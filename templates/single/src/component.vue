@@ -17,7 +17,7 @@ interface SampleData {
 }
 <% } -%>
 
-export default <% if (version === 3) {%>defineComponent(<% } else if (ts) { %>Vue.extend(<% } %>{
+export default /*#__PURE__*/<% if (version === 3) {%>defineComponent(<% } else if (ts) { %>Vue.extend(<% } %>{
   name: '<%-componentNamePascal%>', // vue component name
   data()<% if (ts) { %>: SampleData<% } %> {
     return {

@@ -1,46 +1,39 @@
 <% if (ts && version === 3) { -%>
-import { App, defineComponent, Plugin } from 'vue';
-
+import { App, DefineComponent, Plugin } from 'vue';
 <% } else if (ts && version === 2) { -%>
-import _Vue, { PluginFunction, PluginObject, VueConstructor } from 'vue';
-
+import _Vue, { PluginObject, VueConstructor } from 'vue';
 <% } -%>
+
 // Import vue component
 import component from '@/<%-componentName%>.vue';
 
 <% if (ts) { -%>
 // Define typescript interfaces for installable component
 <% if (version === 3) { -%>
-type InstallableComponent = ReturnType<typeof defineComponent> & { install: Plugin['install'] };
+type InstallableComponent = DefineComponent & { install: Exclude<Plugin['install'], undefined> };
 <% } else { -%>
 type InstallableComponent = VueConstructor<_Vue> & PluginObject<any>;
 <% } -%>
 
 <% } -%>
-// install function executed by Vue.use()
+// Default export is installable instance of component.
+// IIFE injects install function into component, allowing component
+// to be registered via Vue.use() as well as Vue.component(),
+export default /*#__PURE__*/(()<% if (ts) { %>: InstallableComponent<% } %> => {
+  <% if (ts) { %>// Assign InstallableComponent type<% } else { %>// Get component instance<% } %>
+  const installable = component<% if (ts) { %> as unknown as InstallableComponent<% } %>;
+
+  // Attach install function executed by Vue.use()
 <% if (ts) { -%>
-const install: <% if (version === 3) { %>Plugin['install']<% } else { %>PluginFunction<any><% } %> = function install<%-componentNamePascal%>(<% if (version === 3) { %>app: App<% } else { %>Vue: typeof _Vue<% } %>) {
+  installable.install = (<% if (version === 3) { %>app: App<% } else { %>Vue: typeof _Vue<% } %>) => {
 <% } else { -%>
-const install = function install<%-componentNamePascal%>(<% if (version === 3) { %>app<% } else { %>Vue<% } %>) {
+  installable.install = (<% if (version === 3) { %>app<% } else { %>Vue<% } %>) => {
 <% } -%>
-  <% if (version === 3) { %>app<% } else { %>Vue<% } %>.component('<%-componentNamePascal%>', component);
-};
-
-// Inject install function into component - allows component
-// to be registered via Vue.use() as well as Vue.component()
-<% if (ts) { -%>
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-(component as any as InstallableComponent).install = install;
-
-// Export component by default
-export default (component as any as InstallableComponent);
-<% } else { -%>
-component.install = install;
-
-// Export component by default
-export default component;
-<% } -%>
+    <% if (version === 3) { %>app<% } else { %>Vue<% } %>.component('<%-componentNamePascal%>', installable);
+  };
+  return installable;
+})();
 
 // It's possible to expose named exports when writing components that can
 // also be used as directives, etc. - eg. import { RollupDemoDirective } from 'rollup-demo';
-// export const RollupDemoDirective = component;
+// export const RollupDemoDirective = directive;

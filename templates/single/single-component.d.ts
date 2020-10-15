@@ -1,14 +1,8 @@
 <% if (version === 3) { -%>
-import { defineComponent, Plugin } from 'vue';
-
-type InstallableComponent = ReturnType<typeof defineComponent> & { install: Plugin['install'] };
+import { DefineComponent, Plugin } from 'vue';
 <% } else { -%>
 import Vue, { PluginFunction, VueConstructor } from 'vue';
-
-export interface InstallableComponent extends VueConstructor<Vue> {
-  install: PluginFunction<any>;
-}
 <% } -%>
 
-declare const <%-componentNamePascal%>: InstallableComponent;
+declare const <%-componentNamePascal%>: <% if (version === 3) { %>DefineComponent & { install: Exclude<Plugin['install'], undefined> }<% } else { %>VueConstructor<Vue> & { install: PluginFunction<any>; }<% } %>;
 export default <%-componentNamePascal%>;

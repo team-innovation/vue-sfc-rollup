@@ -4,6 +4,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [4.0.0-beta.1] - 2020-10-15
+
+### Fixed
+- Typescript type declarations don't conflict anymore (Vue 3)
+- Fixed treeshaking issues (Vue 2)
+  - package.json includes `"sideEffects": false`
+  - Marked appropriate functions as `/*#__PURE__*/`
+  - Upstream issues may still exist in [vue-runtime-helpers](https://github.com/znck/vue-runtime-helpers/pull/5), but current testing shows output should still be shakeable
+
+### Changed/Removed
+- Update template dependencies
+  - @babel/core 7.12.0
+  - @babel/preset-env 7.12.0
+  - @babel/preset-typescript 7.12.0
+  - @rollup/plugin-babel 5.2.1
+  - @vue/cli-plugin-babel 4.5.7
+  - @vue/cli-plugin-typescript 4.5.7
+  - @vue/cli-service 4.5.7
+  - @vue/compiler-sfc 3.0.0
+  - rollup 2.30.0
+  - rollup-plugin-postcss 3.1.8
+  - rollup-plugin-terser 7.0.2
+  - vue 3.0.0 (Vue 3)
+
 ## [4.0.0-beta.0] - 2020-09-04
 
 ### Added

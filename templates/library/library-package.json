@@ -18,6 +18,7 @@
 <% } -%>
     "src/**/*.vue"
   ],
+  "sideEffects": false,
 
   "scripts": {
     "serve": "vue-cli-service serve dev/serve.<% if (ts) { %>ts<% } else { %>js<% } %>",
@@ -31,31 +32,31 @@
   },
 
   "devDependencies": {
-    "@babel/core": "^7.11.4",
-    "@babel/preset-env": "^7.11.0",
+    "@babel/core": "^7.12.0",
+    "@babel/preset-env": "^7.12.0",
 <% if (ts) { -%>
-    "@babel/preset-typescript": "^7.10.4",
+    "@babel/preset-typescript": "^7.12.0",
 <% } -%>
     "@rollup/plugin-alias": "^3.1.1",
-    "@rollup/plugin-babel": "^5.2.0",
+    "@rollup/plugin-babel": "^5.2.1",
     "@rollup/plugin-commonjs": "^14.0.0",
     "@rollup/plugin-node-resolve": "^9.0.0",
     "@rollup/plugin-replace": "^2.3.3",
-    "@vue/cli-plugin-babel": "^4.5.4",
+    "@vue/cli-plugin-babel": "^4.5.7",
 <% if (ts) { -%>
-    "@vue/cli-plugin-typescript": "^4.5.4",
+    "@vue/cli-plugin-typescript": "^4.5.7",
 <% } -%>
-    "@vue/cli-service": "^4.5.4",
+    "@vue/cli-service": "^4.5.7",
 <% if (version === 3) { -%>
-    "@vue/compiler-sfc": "^3.0.0-rc.9",
+    "@vue/compiler-sfc": "^3.0.0",
 <% } -%>
     "cross-env": "^7.0.2",
     "minimist": "^1.2.5",
-    "rollup": "^2.26.5",
+    "rollup": "^2.30.0",
 <% if (version === 3) { -%>
-    "rollup-plugin-postcss": "^3.1.6",
+    "rollup-plugin-postcss": "^3.1.8",
 <% } -%>
-    "rollup-plugin-terser": "^7.0.0",
+    "rollup-plugin-terser": "^7.0.2",
 <% if (version === 3) { -%>
     "rollup-plugin-vue": "^6.0.0-beta.10",
 <% } else { -%>
@@ -65,7 +66,7 @@
     "typescript": "^3.8.3",
 <% } -%>
 <% if (version === 3) { -%>
-    "vue": "^3.0.0-rc.9"
+    "vue": "^3.0.0"
 <% } else { -%>
     "vue": "^2.6.12",
     "vue-template-compiler": "^2.6.12"
@@ -73,7 +74,7 @@
   },
   "peerDependencies": {
 <% if (version === 3) { -%>
-    "vue": "^3.0.0-rc.9"
+    "vue": "^3.0.0"
 <% } else { -%>
     "vue": "^2.6.12"
 <% } -%>

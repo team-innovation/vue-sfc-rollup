@@ -3,7 +3,7 @@
   "description": "Quickly generate redistributable components with Rollup",
   "author": "Michael Dodge",
   "license": "ISC",
-  "version": "4.0.0-beta.0",
+  "version": "4.0.0-beta.1",
   "bin": {
     "sfc-init": "./sfc-init.js"
   },

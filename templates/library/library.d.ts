@@ -1,12 +1,12 @@
 <% if (version === 3) { -%>
-import { defineComponent, Plugin } from 'vue';
+import { DefineComponent, Plugin } from 'vue';
 
 <% } else { -%>
 import Vue, { PluginFunction, VueConstructor } from 'vue';
 
 <% } -%>
 
-declare const <%-componentNamePascal%>: { install: <% if (version === 3) { %>Plugin['install']<% } else { %>PluginFunction<any><% } %> };
+declare const <%-componentNamePascal%>: <% if (version === 3) { %>Exclude<Plugin['install'], undefined><% } else { %>PluginFunction<any><% } %>;
 export default <%-componentNamePascal%>;
 
-export const <%-componentNamePascal%>Sample: <% if (version === 3) { %>ReturnType<typeof defineComponent><% } else { %>VueConstructor<Vue><% } %>;
+export const <%-componentNamePascal%>Sample: <% if (version === 3) { %>DefineComponent<% } else { %>VueConstructor<Vue><% } %>;
