@@ -4,11 +4,48 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [4.0.0] - 2021-01-07
+
+### Removed
+- Removed beta tag
+
+### Changed/Removed
+- **BREAKING CHANGE**: Drop support for node 10
+- Update cli dependencies
+    - prompts 2.4.0
+    - eslint 7.17.0
+    - eslint-config-airbnb-base 14.2.1
+    - eslint-plugin-import 2.22.1
+    - husky 4.3.7
+- Update template dependencies
+    - @babel/core 7.12.10
+    - @babel/preset-env 7.12.11
+    - @babel/preset-typescript 7.12.7
+    - @rollup/plugin-babel 5.2.2
+    - @rollup/plugin-commonjs 17.0.0
+    - @rollup/plugin-node-resolve 11.0.1
+    - @rollup/plugin-replace 2.3.4
+    - @vue/cli-plugin-babel 4.5.10
+    - @vue/cli-plugin-typescript 4.5.10
+    - @vue/cli-service 4.5.10
+    - @vue/compiler-sfc 3.0.5 (Vue 3)
+    - cross-env 7.0.3
+    - **NEW** postcss 8.2.3 (Vue 3, peer of rollup-plugin-postcss 4.0.0)
+    - rollup 2.36.1
+    - rollup-plugin-postcss 4.0.0
+    - rollup-plugin-vue 6.0.0 (Vue 3)
+    - vue 3.0.5 (Vue 3)
+
+### Known Issues
+- Vue 3 tree-shaking is broken
+    - This is due to a [known bug with @vue/compiler-sfc](https://github.com/vuejs/vue-next/issues/2860), used by rollup-plugin-vue
+    - Vue 2 is not affected
+
 ## [4.0.0-beta.1] - 2020-10-15
 
 ### Fixed
 - Typescript type declarations don't conflict anymore (Vue 3)
-- Fixed treeshaking issues (Vue 2)
+- Fixed tree-shaking issues (Vue 2)
   - package.json includes `"sideEffects": false`
   - Marked appropriate functions as `/*#__PURE__*/`
   - Upstream issues may still exist in [vue-runtime-helpers](https://github.com/znck/vue-runtime-helpers/pull/5), but current testing shows output should still be shakeable
@@ -22,7 +59,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   - @vue/cli-plugin-babel 4.5.7
   - @vue/cli-plugin-typescript 4.5.7
   - @vue/cli-service 4.5.7
-  - @vue/compiler-sfc 3.0.0
+  - @vue/compiler-sfc 3.0.0 (Vue 3)
   - rollup 2.30.0
   - rollup-plugin-postcss 3.1.8
   - rollup-plugin-terser 7.0.2

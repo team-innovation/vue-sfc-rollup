@@ -10,7 +10,7 @@ import component from '@/<%-componentName%>.vue';
 <% if (ts) { -%>
 // Define typescript interfaces for installable component
 <% if (version === 3) { -%>
-type InstallableComponent = DefineComponent & { install: Exclude<Plugin['install'], undefined> };
+type InstallableComponent = DefineComponent<{}, {}, any> & { install: Exclude<Plugin['install'], undefined> };
 <% } else { -%>
 type InstallableComponent = VueConstructor<_Vue> & PluginObject<any>;
 <% } -%>

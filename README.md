@@ -40,7 +40,7 @@ The vue-sfc-rollup utility scaffolds the essential files you need to kick of you
 - a minimal babel.config.js and .browserslistrc file for transpiling
 - two wrappers used by rollup when packaging your SFC
 - a sample SFC to kick-start development
-- a sample usage file which can be used to load/test your component/library during development
+- a sample usage file which can be used to load and test your component/library during development
 
 In library mode, there is also an 'index' which declares the components exposed as part of your library.
 
