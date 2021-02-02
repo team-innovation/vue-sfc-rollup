@@ -1,4 +1,11 @@
-<% if (ts) { -%>
+<% if (version === 3) { -%>
+import { createApp } from 'vue';
+import Dev from './serve.vue';
+
+const app = createApp(Dev);
+app.mount('#app');
+<% } else {
+if (ts) { -%>
 import Vue, { VNode } from 'vue';
 <% } else { -%>
 import Vue from 'vue';
@@ -14,3 +21,4 @@ new Vue({
   render: (h) => h(Dev),
 <% } -%>
 }).$mount('#app');
+<% } -%>

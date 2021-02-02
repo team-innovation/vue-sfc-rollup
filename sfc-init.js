@@ -13,6 +13,7 @@ const helpers = require('./lib/helpers');
 // Prepare container for response data
 const responses = {
   update: false,
+  version: '',
   mode: '',
   npmName: '',
   componentName: '',
@@ -53,6 +54,23 @@ async function checkForUpdates() {
   if (update) {
     responses.update = update;
   }
+}
+async function getVersion() {
+  const question = {
+    type: 'select',
+    name: 'version',
+    message: 'Which version of Vue are you writing for?',
+    choices: [
+      { title: 'Vue 2', value: 2 },
+      { title: 'Vue 3', value: 3 },
+    ],
+    initial: 0,
+  };
+  const response = await prompts(
+    question,
+    { onCancel },
+  );
+  responses.version = response.version;
 }
 async function getMode() {
   const question = {
@@ -165,17 +183,19 @@ function scaffold(data) {
     npmName: data.npmName,
     componentNamePascal,
     componentName: data.componentName,
+    version: data.version,
     ts: data.language === 'ts',
   };
   const files = {
     common: [
       'build/rollup.config.js',
+      { 'src/entry.esm.ts': `src/entry.esm.${data.language}` },
       { 'src/entry.ts': `src/entry.${data.language}` },
       { 'dev/serve.ts': `dev/serve.${data.language}` },
       'dev/serve.vue',
       '.browserslistrc',
       'babel.config.js',
-      (data.language === 'ts') ? 'shims-tsx.d.ts' : null,
+      (data.language === 'ts' && data.version === 2) ? 'shims-tsx.d.ts' : null,
       (data.language === 'ts') ? 'shims-vue.d.ts' : null,
       (data.language === 'ts') ? 'tsconfig.json' : null,
     ],
@@ -260,6 +280,7 @@ function scaffold(data) {
 
 // Begin asking for input, then scaffold
 checkForUpdates()
+  .then(getVersion)
   .then(getMode)
   .then(getName)
   .then(getLanguage)

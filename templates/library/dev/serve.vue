@@ -1,12 +1,17 @@
 <script<% if (ts) { %> lang="ts"<% } %>>
+<% if (version === 3) { -%>
+import { defineComponent } from 'vue';
+<% } else { -%>
 import Vue from 'vue';
-import { <%-componentNamePascal%>Sample } from '@/entry';
+<% } -%>
+// Uncomment import and local "components" registration if library is not registered globally.
+// import { <%-componentNamePascal%>Sample } from '@/entry.esm';
 
-export default Vue.extend({
+export default <% if (version === 3) {%>defineComponent<% } else { %>Vue.extend<% } %>({
   name: 'ServeDev',
-  components: {
-    <%-componentNamePascal%>Sample,
-  }
+  // components: {
+  //  <%-componentNamePascal%>Sample,
+  // }
 });
 </script>
 

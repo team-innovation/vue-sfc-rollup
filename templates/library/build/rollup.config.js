@@ -4,8 +4,12 @@ import path from 'path';
 import vue from 'rollup-plugin-vue';
 import alias from '@rollup/plugin-alias';
 import commonjs from '@rollup/plugin-commonjs';
+import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
-import babel from 'rollup-plugin-babel';
+import babel from '@rollup/plugin-babel';
+<% if (version === 3) { -%>
+import PostCSS from 'rollup-plugin-postcss';
+<% } -%>
 import { terser } from 'rollup-plugin-terser';
 import minimist from 'minimist';
 
@@ -24,25 +28,45 @@ const baseConfig = {
   plugins: {
     preVue: [
       alias({
-        resolve: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
-        entries: {
-          '@': path.resolve(projectRoot, 'src'),
-        },
+        entries: [
+          {
+            find: '@',
+            replacement: `${path.resolve(projectRoot, 'src')}`,
+          },
+        ],
+        customResolver: resolve({
+          extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
+        }),
       }),
     ],
     replace: {
       'process.env.NODE_ENV': JSON.stringify('production'),
-      'process.env.ES_BUILD': JSON.stringify('false'),
     },
     vue: {
+<% if (version === 2) { -%>
       css: true,
       template: {
         isProduction: true,
       },
+<% } -%>
     },
+    postVue: [
+<% if (version === 3) { -%>
+      // Process only `<style module>` blocks.
+      PostCSS({
+        modules: {
+          generateScopedName: '[local]___[hash:base64:5]',
+        },
+        include: /&module=.*\.css$/,
+      }),
+      // Process all `<style>` blocks except `<style module>`.
+      PostCSS({ include: /(?<!&module=.*)\.css$/ }),
+<% } -%>
+    ],
     babel: {
       exclude: 'node_modules/**',
       extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
+      babelHelpers: 'bundled',
     },
   },
 };
@@ -68,6 +92,7 @@ const buildFormats = [];
 if (!argv.format || argv.format === 'es') {
   const esConfig = {
     ...baseConfig,
+    input: 'src/entry.esm.<% if (ts) {%>ts<% } else { %>js<% } %>',
     external,
     output: {
       file: 'dist/<%-componentName%>.esm.js',
@@ -75,12 +100,10 @@ if (!argv.format || argv.format === 'es') {
       exports: 'named',
     },
     plugins: [
-      replace({
-        ...baseConfig.plugins.replace,
-        'process.env.ES_BUILD': JSON.stringify('true'),
-      }),
+      replace(baseConfig.plugins.replace),
       ...baseConfig.plugins.preVue,
       vue(baseConfig.plugins.vue),
+      ...baseConfig.plugins.postVue,
       babel({
         ...baseConfig.plugins.babel,
         presets: [
@@ -107,12 +130,13 @@ if (!argv.format || argv.format === 'cjs') {
       file: 'dist/<%-componentName%>.ssr.js',
       format: 'cjs',
       name: '<%-componentNamePascal%>',
-      exports: 'named',
+      exports: 'auto',
       globals,
     },
     plugins: [
       replace(baseConfig.plugins.replace),
       ...baseConfig.plugins.preVue,
+<% if (version === 2) { -%>
       vue({
         ...baseConfig.plugins.vue,
         template: {
@@ -120,6 +144,10 @@ if (!argv.format || argv.format === 'cjs') {
           optimizeSSR: true,
         },
       }),
+<% } else { -%>
+      vue(baseConfig.plugins.vue),
+<% } -%>
+      ...baseConfig.plugins.postVue,
       babel(baseConfig.plugins.babel),
       commonjs(),
     ],
@@ -136,13 +164,14 @@ if (!argv.format || argv.format === 'iife') {
       file: 'dist/<%-componentName%>.min.js',
       format: 'iife',
       name: '<%-componentNamePascal%>',
-      exports: 'named',
+      exports: 'auto',
       globals,
     },
     plugins: [
       replace(baseConfig.plugins.replace),
       ...baseConfig.plugins.preVue,
       vue(baseConfig.plugins.vue),
+      ...baseConfig.plugins.postVue,
       babel(baseConfig.plugins.babel),
       commonjs(),
       terser({

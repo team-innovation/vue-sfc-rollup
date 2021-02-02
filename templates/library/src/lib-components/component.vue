@@ -1,6 +1,11 @@
 <script<% if (ts) { %> lang="ts"<% } %>>
-<% if (ts) { -%>
+<% if (version === 3) { -%>
+import { defineComponent } from 'vue';
+<% } else if (ts) { -%>
 import Vue from 'vue';
+<% }
+
+if (ts) { -%>
 
 interface SampleData {
   counter: number;
@@ -10,11 +15,9 @@ interface SampleData {
     amount: number | null;
   };
 }
-
-export default Vue.extend({
-<% } else { -%>
-export default {
 <% } -%>
+
+export default /*#__PURE__*/<% if (version === 3) {%>defineComponent(<% } else if (ts) { %>Vue.extend(<% } %>{
   name: '<%-componentNamePascal%>Sample', // vue component name
   data()<% if (ts) { %>: SampleData<% } %> {
     return {
@@ -52,7 +55,7 @@ export default {
       this.message.amount = null;
     },
   },
-<% if (ts) { -%>
+<% if (version === 3 || ts) { -%>
 });
 <% } else { -%>
 };
