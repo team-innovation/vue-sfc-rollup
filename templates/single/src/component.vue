@@ -33,7 +33,7 @@ export default /*#__PURE__*/<% if (version === 3) {%>defineComponent(<% } else i
     changedBy() {
       const { message } = this<% if (ts) { %> as SampleData<% } %>;
       if (!message.action) return 'initialized';
-      return `${message?.action} ${message.amount ?? ''}`.trim();
+      return `${message.action} ${message.amount || ''}`.trim();
     },
   },
   methods: {
