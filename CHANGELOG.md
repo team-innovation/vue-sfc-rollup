@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [4.0.1] - 2021-02-26
+
+### Changed
+- Remove optional chaining/nullish coalescing code from demo component
+    - Webpack 4 (used by vue-cli 4, and vue-cli 5 with cli-plugin-webpack-4) chokes on these, and babel/preset-env no longer transpiles them down. Best to not suggest them in demo components.
+- Update README with note about babel/preset-env
+
+### Known Issues
+- Vue 3 tree-shaking is still broken
+    - Vue 2 is not affected
+
 ## [4.0.0] - 2021-01-07
 
 ### Removed

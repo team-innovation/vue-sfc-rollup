@@ -3,7 +3,7 @@
   "description": "Quickly generate redistributable components with Rollup",
   "author": "Michael Dodge",
   "license": "ISC",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "bin": {
     "sfc-init": "./sfc-init.js"
   },
@@ -23,7 +23,11 @@
     "sfc-init.js"
   ],
   "scripts": {
-    "lint": "eslint ./**/*.js ./**/.*.js"
+    "lint": "eslint ./**/*.js ./**/.*.js",
+    "version": "npm --no-git-tag-version version",
+    "version:patch": "npm run version -- patch",
+    "version:minor": "npm run version -- minor",
+    "version:major": "npm run version -- major"
   },
   "husky": {
     "hooks": {
