@@ -96,9 +96,9 @@ npm run serve
 
 This will start up a webpack dev server with hot reloading and all the other awesomeness!
 
-> **_NOTE:_** The code you write in your SFC will be transpiled by babel, allowing you to use of many modern features in your code. Babel is configured with babel/preset-env, so the code transpiled will target the environments specified in your `.browserslistrc` file. You should indicate supported environments in your component/library `README.md` file, as this requirement is passed on to users of your module, including those using bundlers. If this is a concern, you might suggest users add your component to their list of [transpileDependencies](https://cli.vuejs.org/config/#transpiledependencies) list.
+> **_NOTE:_** The code you write in your SFC will be transpiled by babel, allowing you the use of many modern features in your code. Babel is configured with babel/preset-env, so the code transpiled will target the environments specified in your `.browserslistrc` file. You should indicate supported environments in your component/library `README.md` file, as this requirement is passed on to users of your module, including those using bundlers. If this is a concern, you might suggest users add your component to their list of [transpileDependencies](https://cli.vuejs.org/config/#transpiledependencies) list.
 >
-> It is also possible to [configure babel/preset-env to always apply certain transofmrations](https://babeljs.io/docs/en/babel-preset-env#include) that fall outside those automatically applied. For example, webpack 4 is unable to handle optional chaining and nullish coalescing. Babel/preset-env might indicate it is widely supported by browsers, but build processes still running webpack 4 would crash when encountering this code.
+> It is also possible to [configure babel/preset-env to always apply certain transformations](https://babeljs.io/docs/en/babel-preset-env#include) that fall outside those automatically applied. For example, webpack 4 is unable to handle optional chaining and nullish coalescing. Babel/preset-env might indicate it is widely supported by browsers, but build processes still running webpack 4 would crash when encountering this code.
 
 ## Packaging your SFC
 
