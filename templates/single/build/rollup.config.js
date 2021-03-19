@@ -34,9 +34,9 @@ const baseConfig = {
             replacement: `${path.resolve(projectRoot, 'src')}`,
           },
         ],
-        customResolver: resolve({
-          extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
-        }),
+      }),
+      resolve({
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
       }),
     ],
     replace: {
