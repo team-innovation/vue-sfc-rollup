@@ -35,9 +35,6 @@ const baseConfig = {
           },
         ],
       }),
-      resolve({
-        extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
-      }),
     ],
     replace: {
       'process.env.NODE_ENV': JSON.stringify('production'),
@@ -51,6 +48,9 @@ const baseConfig = {
 <% } -%>
     },
     postVue: [
+      resolve({
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
+      }),
 <% if (version === 3) { -%>
       // Process only `<style module>` blocks.
       PostCSS({
