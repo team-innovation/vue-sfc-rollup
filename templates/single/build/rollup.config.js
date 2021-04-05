@@ -62,6 +62,7 @@ const baseConfig = {
       // Process all `<style>` blocks except `<style module>`.
       PostCSS({ include: /(?<!&module=.*)\.css$/ }),
 <% } -%>
+      commonjs(),
     ],
     babel: {
       exclude: 'node_modules/**',
@@ -115,7 +116,6 @@ if (!argv.format || argv.format === 'es') {
           ],
         ],
       }),
-      commonjs(),
     ],
   };
   buildFormats.push(esConfig);
@@ -149,7 +149,6 @@ if (!argv.format || argv.format === 'cjs') {
 <% } -%>
       ...baseConfig.plugins.postVue,
       babel(baseConfig.plugins.babel),
-      commonjs(),
     ],
   };
   buildFormats.push(umdConfig);
@@ -173,7 +172,6 @@ if (!argv.format || argv.format === 'iife') {
       vue(baseConfig.plugins.vue),
       ...baseConfig.plugins.postVue,
       babel(baseConfig.plugins.babel),
-      commonjs(),
       terser({
         output: {
           ecma: 5,
