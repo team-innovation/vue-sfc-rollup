@@ -19,6 +19,10 @@ const esbrowserslist = fs.readFileSync('./.browserslistrc')
   .split('\n')
   .filter((entry) => entry && entry.substring(0, 2) !== 'ie');
 
+// Extract babel preset-env config, to combine with esbrowserslist
+const babelPresetEnvConfig = require('../babel.config')
+  .presets.filter((entry) => entry[0] === '@babel/preset-env')[0][1];
+
 const argv = minimist(process.argv.slice(2));
 
 const projectRoot = path.resolve(__dirname, '..');
@@ -62,6 +66,7 @@ const baseConfig = {
       // Process all `<style>` blocks except `<style module>`.
       PostCSS({ include: /(?<!&module=.*)\.css$/ }),
 <% } -%>
+      commonjs(),
     ],
     babel: {
       exclude: 'node_modules/**',
@@ -110,12 +115,12 @@ if (!argv.format || argv.format === 'es') {
           [
             '@babel/preset-env',
             {
+              ...babelPresetEnvConfig,
               targets: esbrowserslist,
             },
           ],
         ],
       }),
-      commonjs(),
     ],
   };
   buildFormats.push(esConfig);
@@ -149,7 +154,6 @@ if (!argv.format || argv.format === 'cjs') {
 <% } -%>
       ...baseConfig.plugins.postVue,
       babel(baseConfig.plugins.babel),
-      commonjs(),
     ],
   };
   buildFormats.push(umdConfig);
@@ -173,7 +177,6 @@ if (!argv.format || argv.format === 'iife') {
       vue(baseConfig.plugins.vue),
       ...baseConfig.plugins.postVue,
       babel(baseConfig.plugins.babel),
-      commonjs(),
       terser({
         output: {
           ecma: 5,
