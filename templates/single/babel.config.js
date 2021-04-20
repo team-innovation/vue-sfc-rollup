@@ -14,6 +14,26 @@ const buildPresets = [
   '@babel/preset-typescript',
 <% } -%>
 ];
+
 module.exports = {
-  presets: (process.env.NODE_ENV === 'development' ? devPresets : buildPresets),
-};
+  env: {
+    development: { presets: devPresets },
+    production: { presets: buildPresets },
+    test: {
+      presets: [
+        [
+          '@babel/preset-env',
+          {
+            targets: {
+              node: 'current'
+            }
+          },
+        ],
+<% if (ts) { -%>
+        '@babel/preset-typescript',
+<% } -%>
+        '@vue/babel-preset-app'
+      ]
+    }
+  }
+}

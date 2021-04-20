@@ -17,6 +17,7 @@ const responses = {
   mode: '',
   npmName: '',
   componentName: '',
+  test: '',
   language: '',
   savePath: '',
 };
@@ -115,6 +116,16 @@ async function getName() {
         return (kebabName !== '');
       },
     });
+    questions.push({
+      type: 'select',
+      name: 'test',
+      message: 'What is the testing framework being used?',
+      choices: [
+        { title: 'None', value: 'none' },
+        { title: 'Jest', value: 'jest' },
+      ],
+      initial: 0,
+    });
   }
   const response = await prompts(
     questions,
@@ -128,6 +139,7 @@ async function getName() {
   );
   responses.npmName = response.npmName;
   responses.componentName = response.componentName ? response.componentName : tmpKebabName;
+  responses.test = response.test;
   responses.savePath = `./${tmpKebabName}`;
 }
 
@@ -185,6 +197,7 @@ function scaffold(data) {
     componentName: data.componentName,
     version: data.version,
     ts: data.language === 'ts',
+    test: data.test,
   };
   const files = {
     common: [
@@ -203,6 +216,8 @@ function scaffold(data) {
       { 'src/component.vue': `src/${data.componentName}.vue` },
       { 'single-package.json': 'package.json' },
       (data.language === 'ts') ? { 'single-component.d.ts': `${data.componentName}.d.ts` } : null,
+      (data.test === 'jest') ? 'jest.config.js' : null,
+      (data.test === 'jest') ? { 'tests/initial-test.spec.js': `tests/${data.componentName}.spec.js` } : null,
     ],
     library: [
       { 'src/lib-components/component.vue': `src/lib-components/${data.componentName}-sample.vue` },
