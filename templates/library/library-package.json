@@ -84,5 +84,8 @@
   },
   "engines": {
     "node": ">=12"
+  },
+  "dependencies": {
+    "core-js": "^3.11.0"
   }
 }
