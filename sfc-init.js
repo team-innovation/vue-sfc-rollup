@@ -6,6 +6,7 @@ const prompts = require('prompts');
 const ejs = require('ejs');
 const chalk = require('chalk');
 const updateCheck = require('update-check');
+const minimist = require('minimist');
 
 const pkg = require('./package');
 const helpers = require('./lib/helpers');
@@ -20,6 +21,9 @@ const responses = {
   language: '',
   savePath: '',
 };
+
+// Get any args passed
+const argv = minimist(process.argv.slice(2));
 
 // Create function to display update notification at script completion
 function displayUpdateMessage() {
@@ -56,6 +60,13 @@ async function checkForUpdates() {
   }
 }
 async function getVersion() {
+  // If provided via arg, skip this step
+  if (argv.version) {
+    responses.version = argv.version;
+    return;
+  }
+
+  // Not provided via arg, show prompt
   const question = {
     type: 'select',
     name: 'version',
@@ -73,6 +84,13 @@ async function getVersion() {
   responses.version = response.version;
 }
 async function getMode() {
+  // If provided via arg, skip this step
+  if (argv.mode) {
+    responses.mode = argv.mode;
+    return;
+  }
+
+  // Not provided via arg, show prompt
   const question = {
     type: 'select',
     name: 'mode',
@@ -93,6 +111,16 @@ async function getMode() {
 async function getName() {
   const { mode } = responses;
   let tmpKebabName = '';
+
+  // If provided via arg, skip this step
+  if (argv.name) {
+    tmpKebabName = helpers.kebabcase(argv.name).trim();
+    responses.npmName = argv.name;
+    responses.componentName = tmpKebabName;
+    return;
+  }
+
+  // Not provided via arg, show prompts
   const questions = [
     {
       type: 'text',
@@ -132,6 +160,13 @@ async function getName() {
 }
 
 async function getLanguage() {
+  // If provided via arg, skip this step
+  if (argv.lang) {
+    responses.language = argv.lang;
+    return;
+  }
+
+  // Not provided via arg, show prompt
   const { mode } = responses;
   const question = {
     type: 'select',
@@ -151,6 +186,18 @@ async function getLanguage() {
 }
 
 async function getSavePath() {
+  // If name provided via arg, generate suggested path
+  if (argv.name) {
+    responses.savePath = helpers.kebabcase(
+      `${responses.componentName}${responses.language}${responses.version}`,
+    ).trim();
+    responses.savePath = `./${responses.savePath}`;
+  }
+
+  // If write provided via arg, skip this step
+  if (argv.write) return;
+
+  // Write not provided via arg, show prompt
   const { mode, savePath } = responses;
   const questions = [
     {
@@ -289,3 +336,4 @@ checkForUpdates()
     scaffold(responses);
     displayUpdateMessage();
   });
+
