@@ -45,7 +45,6 @@ The vue-sfc-rollup utility scaffolds the essential files you need to kick of you
 In library mode, there is also an 'index' which declares the components exposed as part of your library.
 
 When developing typescript-based components/libraries, the following supporting files will also be created:
-- A basic typescript declaration file for your component/library
 - The basic typescript shim declaration file(s) common to vue-typescript development
 - A basic tsconfig.json file
 
@@ -80,6 +79,22 @@ The wizard will then prompt you for the following:
   - *save path*: Where do you want to save this component? By default, the wizard will use your current directory and create a new folder with the kebab-case name as your component/library (eg. ./my-component-or-library).
 
 After prompting you for this information, the wizard then creates copies of the files found in the `templates` directory and performs some variable replacement using the information entered.
+
+### Using the vue-sfc-rollup cli flags
+
+For those who use this utility frequently and/or in automated processes, vue-sfc-rollup supports flags to specify the answers for all questions in the prompts. For example:
+
+```bash
+sfc-init --version=2 --mode=component --name=sampleComponent --lang=js --write
+
+sfc-init --version=3 --mode=library --name=sampleLibrary --lang=ts
+```
+
+The first command in the example would scaffold a single vue 2 component with the npm name of `sampleComponent`, written in plain javascript, in the directory `./sample-component2js`. It would write the files immediately.
+
+The second command would scaffoled a vue 3 library with the npm name of `sampleLibrary`, written in typescript, and would suggest the directory `sample-library3ts`, but would not write the files immediately, prompting for that last step instead.
+
+All flags are optional, and the cli will prompt for values covered by flags which were missing. Where possible, reasonable suggestions for missing flags will be provided based on those flags present.
 
 ### Developing your SFC
 

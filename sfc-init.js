@@ -219,7 +219,6 @@ async function getSavePath() {
     },
   );
   responses.savePath = path.resolve(response.savePath);
-  return response;
 }
 
 // Create function to scaffold based on response data
@@ -241,6 +240,7 @@ function scaffold(data) {
       { 'dev/serve.ts': `dev/serve.${data.language}` },
       'dev/serve.vue',
       '.browserslistrc',
+      '.gitignore',
       'babel.config.js',
       (data.language === 'ts' && data.version === 2) ? 'shims-tsx.d.ts' : null,
       (data.language === 'ts') ? 'shims-vue.d.ts' : null,
@@ -296,27 +296,22 @@ function scaffold(data) {
     completeMessage = `
   Init is complete, your files have been generated and saved into the directory you specified above.
   Within that directory, use src/${data.componentName}.vue as a starting point for your SFC.
+
   When you're ready, run \`npm run build\` to generate the redistributable versions.`;
-    if (data.language === 'ts') {
-      completeMessage = `${completeMessage}
-  **NOTE** The default ${data.componentName}.d.ts is not automatically updated. Be sure to keep this
-  file up to date!`;
-    }
   }
   if (data.mode === 'library') {
     completeMessage = `
   Init is complete, your files have been generated and saved into the directory you specified above.
   Within that directory, you will find a sample SFC at src/lib-components/${data.componentName}-sample.vue.
   **NOTE** Any components you wish to expose as part of your library should be saved in that directory, and
-  an entry must be added to src/lib-components/index.${data.language}`;
+  an entry must be added to src/lib-components/index.${data.language} so rollup is aware of it`;
 
     if (data.language === 'ts') {
-      completeMessage = `${completeMessage} and ${data.componentName}.d.ts so rollup is aware of it
-  and typescript users can receive proper support.`;
-    } else {
-      completeMessage = `${completeMessage} so that rollup is aware of it.`;
+      completeMessage = `${completeMessage} and typescript users can
+  receive proper support`;
     }
-    completeMessage = `${completeMessage}
+    completeMessage = `${completeMessage}.
+
   When you're ready, run npm run build to generate the redistributable versions.`;
   }
   // eslint-disable-next-line no-console
@@ -334,4 +329,3 @@ checkForUpdates()
     scaffold(responses);
     displayUpdateMessage();
   });
-
