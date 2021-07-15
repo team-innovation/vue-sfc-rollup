@@ -11,6 +11,10 @@ import babel from '@rollup/plugin-babel';
 import PostCSS from 'rollup-plugin-postcss';
 <% } -%>
 import { terser } from 'rollup-plugin-terser';
+<% if (ts) { -%>
+import ttypescript from 'ttypescript';
+import typescript from 'rollup-plugin-typescript2';
+<% } -%>
 import minimist from 'minimist';
 
 // Get browserslist config and remove ie from es build targets
@@ -109,6 +113,15 @@ if (!argv.format || argv.format === 'es') {
       ...baseConfig.plugins.preVue,
       vue(baseConfig.plugins.vue),
       ...baseConfig.plugins.postVue,
+<% if (ts) { -%>
+      // Only use typescript for declarations - babel will
+      // do actual js transformations
+      typescript({
+        typescript: ttypescript,
+        useTsconfigDeclarationDir: true,
+        emitDeclarationOnly: true,
+      }),
+<% } -%>
       babel({
         ...baseConfig.plugins.babel,
         presets: [

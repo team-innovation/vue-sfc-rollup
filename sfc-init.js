@@ -249,13 +249,11 @@ function scaffold(data) {
     single: [
       { 'src/component.vue': `src/${data.componentName}.vue` },
       { 'single-package.json': 'package.json' },
-      (data.language === 'ts') ? { 'single-component.d.ts': `${data.componentName}.d.ts` } : null,
     ],
     library: [
       { 'src/lib-components/component.vue': `src/lib-components/${data.componentName}-sample.vue` },
       { 'src/lib-components/index.ts': `src/lib-components/index.${data.language}` },
       { 'library-package.json': 'package.json' },
-      (data.language === 'ts') ? { 'library.d.ts': `${data.componentName}.d.ts` } : null,
     ],
   };
 
