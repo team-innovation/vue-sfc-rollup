@@ -6,8 +6,9 @@ const prompts = require('prompts');
 const ejs = require('ejs');
 const chalk = require('chalk');
 const updateCheck = require('update-check');
+const minimist = require('minimist');
 
-const pkg = require('./package');
+const pkg = require('./package.json');
 const helpers = require('./lib/helpers');
 
 // Prepare container for response data
@@ -20,6 +21,9 @@ const responses = {
   language: '',
   savePath: '',
 };
+
+// Get any args passed
+const argv = minimist(process.argv.slice(2));
 
 // Create function to display update notification at script completion
 function displayUpdateMessage() {
@@ -56,6 +60,13 @@ async function checkForUpdates() {
   }
 }
 async function getVersion() {
+  // If provided via arg, skip this step
+  if (argv.version) {
+    responses.version = argv.version;
+    return;
+  }
+
+  // Not provided via arg, show prompt
   const question = {
     type: 'select',
     name: 'version',
@@ -73,6 +84,13 @@ async function getVersion() {
   responses.version = response.version;
 }
 async function getMode() {
+  // If provided via arg, skip this step
+  if (argv.mode) {
+    responses.mode = argv.mode;
+    return;
+  }
+
+  // Not provided via arg, show prompt
   const question = {
     type: 'select',
     name: 'mode',
@@ -93,6 +111,17 @@ async function getMode() {
 async function getName() {
   const { mode } = responses;
   let tmpKebabName = '';
+
+  // If provided via arg, skip this step
+  if (argv.name) {
+    tmpKebabName = helpers.kebabcase(argv.name).trim();
+    responses.npmName = argv.name;
+    responses.componentName = helpers.convertScope(tmpKebabName);
+    responses.savePath = helpers.convertScope(tmpKebabName, '_');
+    return;
+  }
+
+  // Not provided via arg, show prompts
   const questions = [
     {
       type: 'text',
@@ -109,7 +138,7 @@ async function getName() {
       type: 'text',
       name: 'componentName',
       message: 'What is the kebab-case tag name for your component?',
-      initial() { return tmpKebabName; },
+      initial() { return helpers.convertScope(tmpKebabName); },
       validate(val) {
         const kebabName = helpers.kebabcase(val).trim();
         return (kebabName !== '');
@@ -127,11 +156,20 @@ async function getName() {
     },
   );
   responses.npmName = response.npmName;
-  responses.componentName = response.componentName ? response.componentName : tmpKebabName;
-  responses.savePath = `./${tmpKebabName}`;
+  responses.componentName = response.componentName
+    ? response.componentName
+    : helpers.convertScope(tmpKebabName);
+  responses.savePath = `./${helpers.convertScope(helpers.kebabcase(responses.npmName), '_')}`;
 }
 
 async function getLanguage() {
+  // If provided via arg, skip this step
+  if (argv.lang) {
+    responses.language = argv.lang;
+    return;
+  }
+
+  // Not provided via arg, show prompt
   const { mode } = responses;
   const question = {
     type: 'select',
@@ -151,6 +189,10 @@ async function getLanguage() {
 }
 
 async function getSavePath() {
+  // If write provided via arg, skip this step
+  if (argv.write) return;
+
+  // Write not provided via arg, show prompt
   const { mode, savePath } = responses;
   const questions = [
     {
@@ -172,7 +214,6 @@ async function getSavePath() {
     },
   );
   responses.savePath = path.resolve(response.savePath);
-  return response;
 }
 
 // Create function to scaffold based on response data
@@ -194,6 +235,7 @@ function scaffold(data) {
       { 'dev/serve.ts': `dev/serve.${data.language}` },
       'dev/serve.vue',
       '.browserslistrc',
+      '.gitignore',
       'babel.config.js',
       (data.language === 'ts' && data.version === 2) ? 'shims-tsx.d.ts' : null,
       (data.language === 'ts') ? 'shims-vue.d.ts' : null,
@@ -202,13 +244,11 @@ function scaffold(data) {
     single: [
       { 'src/component.vue': `src/${data.componentName}.vue` },
       { 'single-package.json': 'package.json' },
-      (data.language === 'ts') ? { 'single-component.d.ts': `${data.componentName}.d.ts` } : null,
     ],
     library: [
       { 'src/lib-components/component.vue': `src/lib-components/${data.componentName}-sample.vue` },
       { 'src/lib-components/index.ts': `src/lib-components/index.${data.language}` },
       { 'library-package.json': 'package.json' },
-      (data.language === 'ts') ? { 'library.d.ts': `${data.componentName}.d.ts` } : null,
     ],
   };
 
@@ -251,27 +291,22 @@ function scaffold(data) {
     completeMessage = `
   Init is complete, your files have been generated and saved into the directory you specified above.
   Within that directory, use src/${data.componentName}.vue as a starting point for your SFC.
+
   When you're ready, run \`npm run build\` to generate the redistributable versions.`;
-    if (data.language === 'ts') {
-      completeMessage = `${completeMessage}
-  **NOTE** The default ${data.componentName}.d.ts is not automatically updated. Be sure to keep this
-  file up to date!`;
-    }
   }
   if (data.mode === 'library') {
     completeMessage = `
   Init is complete, your files have been generated and saved into the directory you specified above.
   Within that directory, you will find a sample SFC at src/lib-components/${data.componentName}-sample.vue.
   **NOTE** Any components you wish to expose as part of your library should be saved in that directory, and
-  an entry must be added to src/lib-components/index.${data.language}`;
+  an entry must be added to src/lib-components/index.${data.language} so rollup is aware of it`;
 
     if (data.language === 'ts') {
-      completeMessage = `${completeMessage} and ${data.componentName}.d.ts so rollup is aware of it
-  and typescript users can receive proper support.`;
-    } else {
-      completeMessage = `${completeMessage} so that rollup is aware of it.`;
+      completeMessage = `${completeMessage} and typescript users can
+  receive proper support`;
     }
-    completeMessage = `${completeMessage}
+    completeMessage = `${completeMessage}.
+
   When you're ready, run npm run build to generate the redistributable versions.`;
   }
   // eslint-disable-next-line no-console

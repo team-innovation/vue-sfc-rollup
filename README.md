@@ -34,7 +34,7 @@ npm run build
 
 ## Details
 
-The vue-sfc-rollup utility scaffolds the essential files you need to kick of your SFC development. These files include:
+The vue-sfc-rollup utility scaffolds the essential files you need to kick off your SFC development. These files include:
 - a minimal [rollup](https://rollupjs.org) config
 - a corresponding package.json file with build/dev scripts and dependencies
 - a minimal babel.config.js and .browserslistrc file for transpiling
@@ -45,7 +45,6 @@ The vue-sfc-rollup utility scaffolds the essential files you need to kick of you
 In library mode, there is also an 'index' which declares the components exposed as part of your library.
 
 When developing typescript-based components/libraries, the following supporting files will also be created:
-- A basic typescript declaration file for your component/library
 - The basic typescript shim declaration file(s) common to vue-typescript development
 - A basic tsconfig.json file
 
@@ -74,12 +73,28 @@ The wizard will then prompt you for the following:
 
   - *select vue version*: Declare whether you are writing a component for Vue 2 or Vue 3
   - *select mode*: Declare whether you want to scaffold a single component or a library of components.
-  - *npm name*: This is how people will find your component/library in npm. Please refer to [the official npm docs](https://docs.npmjs.com/files/package.json#name) for details of what to enter here
+  - *npm name*: This is how people will find your component/library in npm. Please refer to [the official npm docs](https://docs.npmjs.com/files/package.json#name) for details of what to enter here.
   - *component name* (Single Component Mode Only): This is the kebab-case version of your SFC component name - what your component's tag would be if you were to use this in an HTML page or another component. Since any kebab-case tag name would also be a safe file name, this will also be the name of the generated files.
   - *javascript/typescript*: Do you wish to use typescript to develop your component/library?
-  - *save path*: Where do you want to save this component? By default, the wizard will use your current directory and create a new folder with the kebab-case name as your component/library (eg. ./my-component-or-library).
+  - *save path*: Where do you want to save this component? By default, the wizard will use your current directory and create a new folder based off of your npm name (eg. ./my-component-or-library).
 
 After prompting you for this information, the wizard then creates copies of the files found in the `templates` directory and performs some variable replacement using the information entered.
+
+### Using the vue-sfc-rollup cli flags
+
+For those who use this utility frequently and/or in automated processes, vue-sfc-rollup supports flags to specify the answers for all questions in the prompts. For example:
+
+```bash
+sfc-init --version=2 --mode=component --name=@scope/sampleComponent --lang=js --write
+
+sfc-init --version=3 --mode=library --name=sampleLibrary --lang=ts
+```
+
+The first command in the example would scaffold a single vue 2 component with the npm name of `@scope/sampleComponent`, written in plain javascript, in the directory `./scope_sample-component`. It would write the files immediately.
+
+The second command would scaffoled a vue 3 library with the npm name of `sampleLibrary`, written in typescript, and would suggest the directory `sample-library`, but would not write the files immediately, prompting for that last step instead.
+
+All flags are optional, and the cli will prompt for values covered by flags which were missing.
 
 ### Developing your SFC
 

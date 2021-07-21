@@ -4,7 +4,7 @@
         "module": "esnext",
         "strict": true,
         "declaration": true,
-        "declarationDir": "dist",
+        "declarationDir": "dist/types",
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "importHelpers": true,
@@ -14,6 +14,7 @@
         "allowSyntheticDefaultImports": true,
         "sourceMap": true,
         "baseUrl": ".",
+        "newLine": "lf",
         "types": [
             "node",
             "vue"
@@ -23,6 +24,12 @@
                 "src/*"
             ]
         },
+        "plugins": [
+            {
+                "transform":"@zerollup/ts-transform-paths",
+                "exclude": ["*"]
+            }
+        ],
         "lib": [
             "esnext",
             "dom",
