@@ -8,7 +8,7 @@ const chalk = require('chalk');
 const updateCheck = require('update-check');
 const minimist = require('minimist');
 
-const pkg = require('./package');
+const pkg = require('./package.json');
 const helpers = require('./lib/helpers');
 
 // Prepare container for response data
@@ -116,7 +116,8 @@ async function getName() {
   if (argv.name) {
     tmpKebabName = helpers.kebabcase(argv.name).trim();
     responses.npmName = argv.name;
-    responses.componentName = tmpKebabName;
+    responses.componentName = helpers.convertScope(tmpKebabName);
+    responses.savePath = helpers.convertScope(tmpKebabName, '_');
     return;
   }
 
@@ -137,7 +138,7 @@ async function getName() {
       type: 'text',
       name: 'componentName',
       message: 'What is the kebab-case tag name for your component?',
-      initial() { return tmpKebabName; },
+      initial() { return helpers.convertScope(tmpKebabName); },
       validate(val) {
         const kebabName = helpers.kebabcase(val).trim();
         return (kebabName !== '');
@@ -155,8 +156,10 @@ async function getName() {
     },
   );
   responses.npmName = response.npmName;
-  responses.componentName = response.componentName ? response.componentName : tmpKebabName;
-  responses.savePath = `./${tmpKebabName}`;
+  responses.componentName = response.componentName
+    ? response.componentName
+    : helpers.convertScope(tmpKebabName);
+  responses.savePath = `./${helpers.convertScope(helpers.kebabcase(responses.npmName), '_')}`;
 }
 
 async function getLanguage() {
@@ -186,14 +189,6 @@ async function getLanguage() {
 }
 
 async function getSavePath() {
-  // If name provided via arg, generate suggested path
-  if (argv.name) {
-    responses.savePath = helpers.kebabcase(
-      `${responses.componentName}${responses.language}${responses.version}`,
-    ).trim();
-    responses.savePath = `./${responses.savePath}`;
-  }
-
   // If write provided via arg, skip this step
   if (argv.write) return;
 

@@ -4,7 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [4.1.0] - 2021-07-16
+## [4.1.0] - 2021-07-21
+
+### Fixed
+- Fix file structure generated when npm package name has `@scope/` prefix
 
 ### Added
 - **NEW**: Auto-generated typescript definitions! No more manually maintaining `.d.ts` files
@@ -16,9 +19,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     - ejs 3.1.6
     - minimist 1.2.5
     - prompts 2.4.1
-    - update-check 1.5.4
-    - "eslint 7.30.0
-    - eslint-config-airbnb-base 14.2.1
+    - eslint 7.30.0
     - eslint-plugin-import 2.23.4
     - husky 4.3.8
 - Update template dependencies
@@ -35,11 +36,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     - @vue/cli-service 4.5.13
     - @vue/compiler-sfc 3.0.11
     - @zerollup/ts-transform-paths 1.7.18
+    - typescript 4.0.3
     - postcss 8.2.10
-    - **NEW** rimraf 3.0.2
     - rollup 2.52.8
     - vue 2.6.14
     - vue-template-compiler 2.6.1
+    - **NEW** rimraf 3.0.2
+    - **NEW** rollup-plugin-typescript2 0.30.0
+    - **NEW** ttypescript 1.5.12
 
 ## [4.0.5] - 2021-04-12
 
