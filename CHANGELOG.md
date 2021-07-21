@@ -40,7 +40,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     - postcss 8.2.10
     - rollup 2.52.8
     - vue 2.6.14
-    - vue-template-compiler 2.6.1
+    - vue-template-compiler 2.6.14
     - **NEW** rimraf 3.0.2
     - **NEW** rollup-plugin-typescript2 0.30.0
     - **NEW** ttypescript 1.5.12

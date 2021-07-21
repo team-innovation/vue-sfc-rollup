@@ -85,7 +85,7 @@ After prompting you for this information, the wizard then creates copies of the 
 For those who use this utility frequently and/or in automated processes, vue-sfc-rollup supports flags to specify the answers for all questions in the prompts. For example:
 
 ```bash
-sfc-init --version=2 --mode=component --name=sampleComponent --lang=js --write
+sfc-init --version=2 --mode=component --name=@scope/sampleComponent --lang=js --write
 
 sfc-init --version=3 --mode=library --name=sampleLibrary --lang=ts
 ```
