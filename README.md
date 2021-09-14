@@ -1,9 +1,3 @@
-FORKED FROM vue-sfc-rollup
-
-Fixed error:
-(!) Plugin replace: @rollup/plugin-replace: 'preventAssignment' currently defaults to false. It is recommended to set this option to `true`, as the next major version will default this option to `true`.
-[!] Error: Unexpected token (Note that you need @rollup/plugin-json to import JSON files)
-
 # vue-sfc-rollup
 
 vue-sfc-rollup is a CLI templating utility that scaffolds a minimal setup for compiling a Vue Single File Component (SFC) - or library of multiple SFCs - into a form ready to share via npm. It doesn't assume any particular flavor of CSS or docs generator, so you can use what you're already used to. It's the fastest way to produce npm-ready vue components!
