@@ -7,6 +7,8 @@ import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
 import babel from '@rollup/plugin-babel';
+const json = require('@rollup/plugin-json');
+
 <% if (version === 3) { -%>
 import PostCSS from 'rollup-plugin-postcss';
 <% } -%>
@@ -109,6 +111,7 @@ if (!argv.format || argv.format === 'es') {
       exports: 'named',
     },
     plugins: [
+      json(),
       replace(baseConfig.plugins.replace),
       ...baseConfig.plugins.preVue,
       vue(baseConfig.plugins.vue),
@@ -152,6 +155,7 @@ if (!argv.format || argv.format === 'cjs') {
       globals,
     },
     plugins: [
+      json(),
       replace(baseConfig.plugins.replace),
       ...baseConfig.plugins.preVue,
 <% if (version === 2) { -%>
@@ -185,6 +189,7 @@ if (!argv.format || argv.format === 'iife') {
       globals,
     },
     plugins: [
+      json(),
       replace(baseConfig.plugins.replace),
       ...baseConfig.plugins.preVue,
       vue(baseConfig.plugins.vue),
