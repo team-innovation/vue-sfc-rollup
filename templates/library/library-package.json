@@ -20,10 +20,10 @@
   "scripts": {
     "serve": "vue-cli-service serve dev/serve.<% if (ts) { %>ts<% } else { %>js<% } %>",
     "prebuild": "rimraf ./dist",
-    "build": "cross-env NODE_ENV=production rollup --config build/rollup.config.js",
-    "build:ssr": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format cjs",
-    "build:es": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format es",
-    "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife"<% if (ts) { %>,
+    "build": "cross-env NODE_ENV=production rollup --config build/rollup.config.<% if (ts) { %>ts --configPlugin typescript<% } else { %>js<% } %>",
+    "build:ssr": "cross-env NODE_ENV=production rollup --config build/rollup.config.<% if (ts) { %>ts --configPlugin typescript<% } else { %>js<% } %> --format cjs",
+    "build:es": "cross-env NODE_ENV=production rollup --config build/rollup.config.<% if (ts) { %>ts --configPlugin typescript<% } else { %>js<% } %> --format es",
+    "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.<% if (ts) { %>ts --configPlugin typescript<% } else { %>js<% } %> --format iife"<% if (ts) { %>,
     "postbuild": "rimraf ./dist/types/dev ./dist/types/src/entry.d.ts"<% } %>
   },
 

@@ -229,7 +229,7 @@ function scaffold(data) {
   };
   const files = {
     common: [
-      'build/rollup.config.js',
+      { 'build/rollup.config.ts': `build/rollup.config.${data.language}` },
       { 'src/entry.esm.ts': `src/entry.esm.${data.language}` },
       { 'src/entry.ts': `src/entry.${data.language}` },
       { 'dev/serve.ts': `dev/serve.${data.language}` },

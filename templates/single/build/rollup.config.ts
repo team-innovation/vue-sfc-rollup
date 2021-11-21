@@ -1,6 +1,9 @@
 // rollup.config.js
 import fs from 'fs';
 import path from 'path';
+<% if (ts) { -%>
+import { defineConfig } from 'rollup';
+<% } -%>
 import vue from 'rollup-plugin-vue';
 import alias from '@rollup/plugin-alias';
 import commonjs from '@rollup/plugin-commonjs';
@@ -25,7 +28,7 @@ const esbrowserslist = fs.readFileSync('./.browserslistrc')
 
 // Extract babel preset-env config, to combine with esbrowserslist
 const babelPresetEnvConfig = require('../babel.config')
-  .presets.filter((entry) => entry[0] === '@babel/preset-env')[0][1];
+  .presets.filter((entry<% if (ts) {%>: string | Record<string, any>[]<% } %>) => entry[0] === '@babel/preset-env')[0][1];
 
 const argv = minimist(process.argv.slice(2));
 
@@ -75,7 +78,7 @@ const baseConfig = {
     babel: {
       exclude: 'node_modules/**',
       extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
-      babelHelpers: 'bundled',
+      babelHelpers: 'bundled'<% if (ts) {%> as 'bundled'<% } %>,
     },
   },
 };
@@ -97,7 +100,7 @@ const globals = {
 };
 
 // Customize configs for individual targets
-const buildFormats = [];
+const buildFormats = <% if (ts) {%>defineConfig([])<% } else { %>[]<% } %>;
 if (!argv.format || argv.format === 'es') {
   const esConfig = {
     ...baseConfig,
@@ -105,8 +108,8 @@ if (!argv.format || argv.format === 'es') {
     external,
     output: {
       file: 'dist/<%-componentName%>.esm.js',
-      format: 'esm',
-      exports: 'named',
+      format: 'esm'<% if (ts) {%> as 'esm'<% } %>,
+      exports: 'named'<% if (ts) {%> as 'named'<% } %>,
     },
     plugins: [
       replace(baseConfig.plugins.replace),
@@ -146,9 +149,9 @@ if (!argv.format || argv.format === 'cjs') {
     output: {
       compact: true,
       file: 'dist/<%-componentName%>.ssr.js',
-      format: 'cjs',
+      format: 'cjs'<% if (ts) {%> as 'cjs'<% } %>,
       name: '<%-componentNamePascal%>',
-      exports: 'auto',
+      exports: 'auto'<% if (ts) {%> as 'auto'<% } %>,
       globals,
     },
     plugins: [
@@ -179,9 +182,9 @@ if (!argv.format || argv.format === 'iife') {
     output: {
       compact: true,
       file: 'dist/<%-componentName%>.min.js',
-      format: 'iife',
+      format: 'iife'<% if (ts) {%> as 'iife'<% } %>,
       name: '<%-componentNamePascal%>',
-      exports: 'auto',
+      exports: 'auto'<% if (ts) {%> as 'auto'<% } %>,
       globals,
     },
     plugins: [
