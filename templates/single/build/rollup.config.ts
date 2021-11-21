@@ -1,4 +1,4 @@
-// rollup.config.js
+// rollup.config.(js|ts)
 import fs from 'fs';
 import path from 'path';
 <% if (ts) { -%>
