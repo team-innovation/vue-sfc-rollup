@@ -2,7 +2,7 @@
 import fs from 'fs';
 import path from 'path';
 <% if (ts) { -%>
-import { defineConfig } from 'rollup';
+import { defineConfig, RollupOptions } from 'rollup';
 <% } -%>
 import vue from 'rollup-plugin-vue';
 import alias from '@rollup/plugin-alias';
@@ -34,7 +34,7 @@ const argv = minimist(process.argv.slice(2));
 
 const projectRoot = path.resolve(__dirname, '..');
 
-const baseConfig = {
+const baseConfig<% if (ts) {%>: RollupOptions<% } %> = {
   input: 'src/entry.<% if (ts) {%>ts<% } else { %>js<% } %>',
   plugins: {
     preVue: [
@@ -78,7 +78,7 @@ const baseConfig = {
     babel: {
       exclude: 'node_modules/**',
       extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
-      babelHelpers: 'bundled'<% if (ts) {%> as 'bundled'<% } %>,
+      babelHelpers: 'bundled',
     },
   },
 };
@@ -102,14 +102,14 @@ const globals = {
 // Customize configs for individual targets
 const buildFormats = <% if (ts) {%>defineConfig([])<% } else { %>[]<% } %>;
 if (!argv.format || argv.format === 'es') {
-  const esConfig = {
+  const esConfig<% if (ts) {%>: RollupOptions<% } %> = {
     ...baseConfig,
     input: 'src/entry.esm.<% if (ts) {%>ts<% } else { %>js<% } %>',
     external,
     output: {
       file: 'dist/<%-componentName%>.esm.js',
-      format: 'esm'<% if (ts) {%> as 'esm'<% } %>,
-      exports: 'named'<% if (ts) {%> as 'named'<% } %>,
+      format: 'esm',
+      exports: 'named',
     },
     plugins: [
       replace(baseConfig.plugins.replace),
@@ -143,15 +143,15 @@ if (!argv.format || argv.format === 'es') {
 }
 
 if (!argv.format || argv.format === 'cjs') {
-  const umdConfig = {
+  const umdConfig<% if (ts) {%>: RollupOptions<% } %> = {
     ...baseConfig,
     external,
     output: {
       compact: true,
       file: 'dist/<%-componentName%>.ssr.js',
-      format: 'cjs'<% if (ts) {%> as 'cjs'<% } %>,
+      format: 'cjs',
       name: '<%-componentNamePascal%>',
-      exports: 'auto'<% if (ts) {%> as 'auto'<% } %>,
+      exports: 'auto',
       globals,
     },
     plugins: [
@@ -176,15 +176,15 @@ if (!argv.format || argv.format === 'cjs') {
 }
 
 if (!argv.format || argv.format === 'iife') {
-  const unpkgConfig = {
+  const unpkgConfig<% if (ts) {%>: RollupOptions<% } %> = {
     ...baseConfig,
     external,
     output: {
       compact: true,
       file: 'dist/<%-componentName%>.min.js',
-      format: 'iife'<% if (ts) {%> as 'iife'<% } %>,
+      format: 'iife',
       name: '<%-componentNamePascal%>',
-      exports: 'auto'<% if (ts) {%> as 'auto'<% } %>,
+      exports: 'auto',
       globals,
     },
     plugins: [
