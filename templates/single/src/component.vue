@@ -83,7 +83,7 @@ export default /*#__PURE__*/<% if (version === 3) {%>defineComponent(<% } else i
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
   .<%-componentName%> {
     display: block;
     width: 400px;
